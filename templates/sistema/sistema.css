@@ -1,0 +1,14 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    box-sizing: border-box;
+}
+
+.logo img{
+    width: 80px;
+    padding: 23px 8px;
+    background-color: #000;
+}

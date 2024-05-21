@@ -4,4 +4,4 @@ bp_site = Blueprint("site", __name__)
 
 @bp_site.route("/")
 def index():
-    return render_template("./site/index.html")
+    return render_template("./empresa/index.html")
