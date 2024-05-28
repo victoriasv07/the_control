@@ -27,7 +27,7 @@
                 <td>{{ valor.email }}</td>
                 <td>{{ valor.telefone }}</td>
                 <td>{{ valor.mensagem }}</td>
-                <form action="{{ url_for('sistema.autorizacao_usuario') }}" method="post">
+                <form action="{{ url_for('sistema.autorizacao_usuario', id = valor.id) }}" method="post">
                     <input type="hidden" value="{{ valor.id }}" name="id">
                     <td><button type="submit">Autorizar</button></td>
                 </form>
@@ -35,10 +35,5 @@
             {% endfor %}
         </tbody>
     </table>
-    <script>
-        setInterval(function () {
-          location.reload();
-        }, 5000); 
-      </script>
 </body>
 </html>

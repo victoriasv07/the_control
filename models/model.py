@@ -24,7 +24,7 @@ class Login(db.Model):
     token = db.Column(db.String, nullable = True) 
 
 class Usuario(db.Model):
-    __tablename__ = "usuarios "
+    __tablename__ = "usuario"
     id = db.Column(db.Integer, primary_key = True)
     nome = db.Column(db.String(45), nullable = True)
     cpf = db.Column(db.Integer, nullable = True) 

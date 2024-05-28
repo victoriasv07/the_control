@@ -28,23 +28,20 @@ def forms_acesso():
 #         email = request.form.get ('email')
 
 
-@bp_sistema.route("/usuario/autorizacao/<int:id>", methods=["POST"])
 @bp_sistema.route("/usuario/autorizacao", methods=["GET"])
-def autorizacao_usuario(id=None):
+def autorizacao_usuario_view():
     infos_usuarios = Cadastro.query.all()
-    
-    if request.method == "POST":
-        autorizacao_usuario_selecionado = Cadastro.query.get(id)
-        
-        if autorizacao_usuario_selecionado:
-            usuario_autorizado = Usuario(nome=autorizacao_usuario_selecionado.nome, cpf=autorizacao_usuario_selecionado.cpf, email=autorizacao_usuario_selecionado.email, telefone=autorizacao_usuario_selecionado.telefone, mensagem=autorizacao_usuario_selecionado.mensagem)
-            
-            db.session.add(usuario_autorizado)
-            db.session.commit()
-            
-            return "Usuário autorizado com sucesso!"
-        else:
-            return "Usuário não encontrado para autorização."
-    
     return render_template("./sistema/sistema_auth/autorizacao_usuario.html", infos_usuarios=infos_usuarios)
 
+@bp_sistema.route("/usuario/autorizacao/<int:id>", methods=["POST"])
+def autorizacao_usuario(id):
+    autorizacao_usuario_selecionado = Cadastro.query.get(id)
+    
+    if autorizacao_usuario_selecionado:
+        usuario_autorizado = Usuario(nome=autorizacao_usuario_selecionado.nome, cpf=autorizacao_usuario_selecionado.cpf, email=autorizacao_usuario_selecionado.email, telefone=autorizacao_usuario_selecionado.telefone, mensagem=autorizacao_usuario_selecionado.mensagem)
+        db.session.add(usuario_autorizado)
+        db.session.commit()
+        
+        return "Usuário autorizado com sucesso!"
+    else:
+        return "Usuário não encontrado para autorização."
