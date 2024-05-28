@@ -17,8 +17,17 @@ class Cadastro(db.Model):
     mensagem = db.Column(db.Text(45), nullable = True) 
 
 class Login(db.Model):
-    __tablename__ = "usuarios"
+    __tablename__ = "login"
     id = db.Column(db.Integer, primary_key = True)
     cpf = db.Column(db.Integer, nullable = True) 
     email = db.Column(db.String(45), nullable = True) 
     token = db.Column(db.String, nullable = True) 
+
+class Usuario(db.Model):
+    __tablename__ = "usuarios "
+    id = db.Column(db.Integer, primary_key = True)
+    nome = db.Column(db.String(45), nullable = True)
+    cpf = db.Column(db.Integer, nullable = True) 
+    email = db.Column(db.String(45), nullable = True) 
+    telefone = db.Column(db.Integer, nullable = True) 
+    mensagem = db.Column(db.Text(45), nullable = True) 

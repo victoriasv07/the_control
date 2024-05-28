@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request, render_template, redirect
-from models.model import db, Patrimonios, Cadastro
+from models.model import db, Patrimonios, Cadastro, Usuario
 bp_sistema = Blueprint("sistema", __name__)
 
 @bp_sistema.route("/sistema")
@@ -20,15 +20,31 @@ def forms_acesso():
         return "Concluido"
     return render_template("./sistema/registro/form_usuario.html")
 
-@bp_sistema.route("/usuarios/acesso", methods=["POST", "GET"])
-def login_acesso():
-    if request.method == "POST":
-        token = request.form.get ('token')
-        cpf = request.form.get ('cpf')
-        email = request.form.get ('email')
-         
+# @bp_sistema.route("/usuarios/acesso", methods=["POST", "GET"])
+# def login_acesso():
+#     if request.method == "POST":
+#         token = request.form.get ('token')
+#         cpf = request.form.get ('cpf')
+#         email = request.form.get ('email')
 
-@bp_sistema.route("/usuario/autorizacao/usuario", methods = ["POST", "GET"])
-def autorizacao_usuario():
+
+@bp_sistema.route("/usuario/autorizacao/<int:id>", methods=["POST"])
+@bp_sistema.route("/usuario/autorizacao", methods=["GET"])
+def autorizacao_usuario(id=None):
     infos_usuarios = Cadastro.query.all()
-    return render_template("./sistema/sistema_auth/autorizacao_usuario.html", infos_usuarios = infos_usuarios)
+    
+    if request.method == "POST":
+        autorizacao_usuario_selecionado = Cadastro.query.get(id)
+        
+        if autorizacao_usuario_selecionado:
+            usuario_autorizado = Usuario(nome=autorizacao_usuario_selecionado.nome, cpf=autorizacao_usuario_selecionado.cpf, email=autorizacao_usuario_selecionado.email, telefone=autorizacao_usuario_selecionado.telefone, mensagem=autorizacao_usuario_selecionado.mensagem)
+            
+            db.session.add(usuario_autorizado)
+            db.session.commit()
+            
+            return "Usuário autorizado com sucesso!"
+        else:
+            return "Usuário não encontrado para autorização."
+    
+    return render_template("./sistema/sistema_auth/autorizacao_usuario.html", infos_usuarios=infos_usuarios)
+
