@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
 db = SQLAlchemy()
 
 class Patrimonios(db.Model):
@@ -16,18 +17,14 @@ class Cadastro(db.Model):
     telefone = db.Column(db.Integer, nullable = True) 
     mensagem = db.Column(db.Text(45), nullable = True) 
 
-class Login(db.Model):
-    __tablename__ = "login"
-    id = db.Column(db.Integer, primary_key = True)
-    cpf = db.Column(db.Integer, nullable = True) 
-    email = db.Column(db.String(45), nullable = True) 
-    token = db.Column(db.String, nullable = True) 
 
-class Usuario(db.Model):
+class Usuario(db.Model, UserMixin):
     __tablename__ = "usuario"
     id = db.Column(db.Integer, primary_key = True)
     nome = db.Column(db.String(45), nullable = True)
     cpf = db.Column(db.Integer, nullable = True) 
     email = db.Column(db.String(45), nullable = True) 
     telefone = db.Column(db.Integer, nullable = True) 
-    mensagem = db.Column(db.Text(45), nullable = True) 
+    mensagem = db.Column(db.Text(45), nullable = True)
+    def check_email(self, cpf):
+        return cpf    

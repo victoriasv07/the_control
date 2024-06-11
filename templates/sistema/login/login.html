@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../../static/css/login.css">
+    <link rel="icon" href="../../static/img/iconefp.png">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>The Control | Login</title>
+</head>
+<body>
+
+    <div id="particles-js">
+        <canvas class="particles-js-canvas-el" style="width: 100%; height: 100%;"></canvas>
+    </div>
+
+    <div class="back-logo">
+        <img src="../../static/img/iconecfpQ.png">
+    </div>
+    <div class="top-logo">
+        <img src="../../../static/img/logorft.png">
+    </div>
+
+    <div class="container">
+        <h1 class="login_name">Login</h1>
+            <form action="" method="post" class="form">
+
+                
+            <div class="input-group">
+                <!-- <label for="cpf" class="nome">CPF:</label> -->
+                <input type="number" id="cpf" name="cpf"  placeholder="CPF" required>
+                <i class='bx bx-id-card icon'></i>
+            </div>
+
+            <div class="input-group">
+                <!-- <label for="email" class="nome">Email:</label> -->
+                <input type="email" id="email" name="email" placeholder="Email" required>
+                <i class='bx bx-mail-send icon'></i>
+            </div>
+
+            <div class="input-group">
+                <!-- <label for="token" class="nome">Digite o seu token:</label> -->
+                <input type="password" id="token" name="token"  placeholder="Token" required>
+                <i class='bx bx-lock-open icon'></i>
+            </div>
+                <button type="submit" class="entrar-btn">Entrar</button>
+                <p class="text-login">Não tem cadastro?<a href="#">Cadastrar</a></p>
+    </div>
+    <footer class="login-footer">© THE CONTROL - 2024</footer>
+    <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="http://threejs.org/examples/js/libs/stats.min.js"></script>
+    <script src="../../../static/js/script.js"></script>
+    <script src="../../../static/js/app.js"></script>
+    <script src="../../../static/js/particles.js"></script>
+</body>
+</html>

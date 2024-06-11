@@ -1,0 +1,387 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+*{
+    margin: 0;
+    padding: 0;
+    transition: var(--tran-3);
+    color: var(--corFonte);
+    font-family: 'Poppins', sans-serif;
+}
+
+:root{
+    /* ==== CORES ==== */
+    --corBackBody: #e8ecf7;
+    --corSideBar: #fff;
+    --corFonte: #707070;
+    --corToggleInput: #ddd;
+    --corPrimaria: #fb3b3b;
+
+    /* ==== TRANSICOES ==== */
+    --tran-3: .3s ease;
+    --tran-4: .4s ease;
+    --tran-5: .5s ease;
+}
+
+:root.dark{
+    --corBackBody: #1f2020;
+    --corSideBar: #242526;
+    --corFonte: #ccc;
+    --corToggleInput: #ddd;
+}
+
+body{
+    height: 100vh;
+}
+
+.bx-chevron-left:hover{
+    cursor: pointer;
+}
+
+.side-bar{
+    width: 250px;
+    position: fixed;
+    height: calc(100% - 20px);
+    padding: 10px 14px;
+    top: 0;
+    left: 0;
+    background-color: var(--corSideBar);
+}
+
+.side-bar.close{
+    width: 72px;
+}
+
+.header{
+    position: relative;
+}
+
+.header-div{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-div span{
+    min-width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-div span img{
+    width: 40px;
+    padding: 4px;
+    border-radius: 8px;
+    background-color: var(--corPrimaria);
+}
+
+.header-div h1{
+    font-size: 18px;
+    color: var(--corFonte);
+}
+
+.header-div i{
+    position: absolute;
+    right: -25px;
+    width: 25px;
+    height: 25px;
+    background-color: var(--corPrimaria);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    color: var(--corSideBar);
+}
+
+.home{
+    margin-left: 278px;
+    width: calc(100% - 278px);
+    height: 100%;
+    background-color: var(--corBackBody);
+}
+
+.home.close{
+    margin-left: 100px;
+    width: calc(100% - 100px);
+}
+
+.menu-item {
+    list-style: none; 
+    align-items: center;
+    display: flex;
+    padding: 8px;
+    border-radius: 6px;
+    margin-top: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.menu-item.salas{
+    overflow: hidden;
+}
+
+.menu-item:hover{
+    background-color: var(--corPrimaria);
+    /* cursor: pointer; */
+}
+
+.sala-link:hover{
+    color: var(--corPrimaria);
+    margin-left: 1ch;
+}
+
+.menu-item:hover .a-item .nome-item, .menu-item:hover .icon, .menu-item:hover .bx-chevron-up{
+    color: var(--corSideBar);
+}
+
+.menu-item.toggle:hover, 
+.menu-item.toggle:hover .a-item .nome-item{ 
+    background-color: unset;
+    color: var(--corFonte);
+    cursor: pointer;
+}
+
+/* ==== DROPDROWNS ==== */
+
+.menu-salas.mostrar{
+    height: calc(19*34px);
+    margin: 8px 0 0 60px;
+}
+
+.menu-educacional.mostrar{
+    height: calc(8*34px);
+    margin: 8px 0 0 60px;
+}
+
+.menu-atendimento.mostrar{
+    height: calc(2*34px);
+    margin: 8px 0 0 60px;
+}
+
+.menu-convivencia.mostrar{
+    height: calc(3*34px);
+    margin: 8px 0 0 60px;
+}
+
+.menu-alimentacao.mostrar{
+    height: calc(2*34px);
+    margin: 8px 0 0 60px;
+}
+
+.menu-administrativo.mostrar{
+    height: calc(5*34px);
+    margin: 8px 0 0 60px;
+}
+
+.menu-esportivo.mostrar{
+    height: calc(7*34px);
+    margin: 8px 0 0 60px;
+}
+
+.menu-profissional.mostrar{
+    height: calc(7*34px);
+}
+
+.menu-item.salas.mostrar:hover
+,.menu-item.salas.mostrar:hover .a-item .nome-item
+,.menu-item.salas.mostrar:hover .icon
+,.menu-item.salas.mostrar:hover .bx-chevron-up
+,.menu-item.educacional.mostrar:hover
+,.menu-item.educacional.mostrar:hover .a-item .nome-item
+,.menu-item.educacional.mostrar:hover .icon
+,.menu-item.educacional.mostrar:hover .bx-chevron-up
+,.menu-item.atendimento.mostrar:hover
+,.menu-item.atendimento.mostrar:hover .a-item .nome-item
+,.menu-item.atendimento.mostrar:hover .icon
+,.menu-item.atendimento.mostrar:hover .bx-chevron-up
+,.menu-item.convivencia.mostrar:hover
+,.menu-item.convivencia.mostrar:hover .a-item .nome-item
+,.menu-item.convivencia.mostrar:hover .icon
+,.menu-item.convivencia.mostrar:hover .bx-chevron-up
+,.menu-item.alimentacao.mostrar:hover
+,.menu-item.alimentacao.mostrar:hover .a-item .nome-item
+,.menu-item.alimentacao.mostrar:hover .icon
+,.menu-item.alimentacao.mostrar:hover .bx-chevron-up
+,.menu-item.administrativo.mostrar:hover
+,.menu-item.administrativo.mostrar:hover .a-item .nome-item
+,.menu-item.administrativo.mostrar:hover .icon
+,.menu-item.administrativo.mostrar:hover .bx-chevron-up
+,.menu-item.esportivo.mostrar:hover
+,.menu-item.esportivo.mostrar:hover .a-item .nome-item
+,.menu-item.esportivo.mostrar:hover .icon
+,.menu-item.esportivo.mostrar:hover .bx-chevron-up
+,.menu-item.profissional.mostrar:hover
+,.menu-item.profissional.mostrar:hover .a-item .nome-item
+,.menu-item.profissional.mostrar:hover .icon
+,.menu-item.profissional.mostrar:hover .bx-chevron-up
+{
+    background-color: unset;
+    color: var(--corFonte);
+}
+
+.menu-item.salas.mostrar .a-item .bx-chevron-up
+,.menu-item.educacional.mostrar .a-item .bx-chevron-up
+,.menu-item.atendimento.mostrar .a-item .bx-chevron-up
+,.menu-item.convivencia.mostrar .a-item .bx-chevron-up
+,.menu-item.alimentacao.mostrar .a-item .bx-chevron-up
+,.menu-item.administrativo.mostrar .a-item .bx-chevron-up
+,.menu-item.esportivo.mostrar .a-item .bx-chevron-up
+,.menu-item.profissional.mostrar .a-item .bx-chevron-up{
+    transform: rotate(0deg);
+}
+
+.a-item.salas, .a-item.educacional, .a-item.atendimento, .a-item.convivencia, .a-item.alimentacao, .a-item.administrativo, .a-item.esportivo, .a-item.profissional{
+    position: relative;
+    width: 100%;
+}
+
+.menu-salas, .menu-educacional, .menu-atendimento, .menu-convivencia, .menu-alimentacao, .menu-administrativo, .menu-esportivo, .menu-profissional{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: calc(100% - 45px);
+    margin: 0 0 0 60px;
+    overflow: hidden;
+    height: 0;
+    transition: .3s;
+}
+
+.lista-sala{
+    list-style: none;
+    min-width: 60px;
+}
+
+.sala-link{
+    display: flex;
+    text-decoration: none;
+    height: 30px;
+    border-radius: 6px;
+    margin-top: 4px;
+}
+
+.a-item {
+    text-decoration: none;
+    color: var(--corFonte);
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.bx-chevron-up{
+    position: absolute;
+    right: 0;
+    font-size: 20px;
+    transform: rotate(180deg);
+
+}
+
+.bx-chevron-up:hover{
+    cursor: pointer;
+}
+
+.icon{
+    color: var(--corFonte);
+    min-width: 60px;
+    border-radius: 6px;
+    height: 100%;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+}
+
+.nome-item{
+    font-size: 17px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 1;
+}
+
+.menu{
+    height: calc(100% - 108px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: scroll;
+    margin-top: 40px;
+}
+
+.menu::-webkit-scrollbar{
+    width: 0;
+}
+
+.home-conteudo{
+    padding: 20px;
+}
+
+.menu-item.toggle{
+    position: relative;
+}
+
+.menu-item.toggle .a-item{
+    margin-left: 15px;
+}
+
+.toggle-switch{
+    position: absolute;
+    right: 0;
+    min-width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.switch{
+    position: relative;
+    height: 22px;
+    width: 40px;
+    border-radius: 25px;
+    background-color: var(--corToggleInput);
+    transition: var(--tran-4);
+}
+
+.switch::before{
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    content: '';
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    transition: var(--tran-3);
+    box-shadow: inset 16px -4px 0px 0px var(--corSideBar);
+}
+
+.switch.active::before{
+    left: 20px;
+    box-shadow: inset 6px -4px 0px 0px var(--corSideBar);
+}
+  
+  /* .slider::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    -webkit-box-shadow: inset 12px -4px 0px 0px var(--light);
+    box-shadow: inset 12px -4px 0px 0px var(--light);
+    background-color: var(--dark);
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+  }
+  
+  .checkbox:checked ~ .slider::before {
+    -webkit-transform: translateX(10px);
+    -ms-transform: translateX(10px);
+    transform: translateX(10px);
+    background-color: var(--dark);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  } */
+  

@@ -4,7 +4,6 @@ from api_sistema import bp_sistema
 from api_sistema_filha import bp_sistema_filho
 from  config.config import Config
 from models.model import db
-
 def create_app():
     app = Flask(__name__)
     app.register_blueprint(bp_site)

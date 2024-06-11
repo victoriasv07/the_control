@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../../static/css/cadastro.css">
+    <link rel="icon" href="../../static/img/iconefp.png">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>The Control | Cadastro</title>
+</head>
+<body>
+    <div id="particles-js">
+        <canvas class="particles-js-canvas-el" style="width: 100%; height: 100%;"></canvas>
+    </div>
+    <div class="back-logo">
+        <img src="../../static/img/iconecfpQ.png">
+    </div>
+    <div class="top-logo">
+        <img src="../../../static/img/logorft.png">
+    </div>
+    <div class="container">
+        <h1 class="form-titulo">Cadastro</h1>
+        <form action="/" method="post" class="form">
+            <div class="input-group">
+                <!-- <label for="nome">Nome completo:</label> -->
+                <input type="name" id="nome" name="nome" placeholder="Nome" required >
+                <i class='bx bx-user icon'></i>
+            </div>
+            <div class="input-group">
+                <!-- <label for="cpf">CPF:</label> -->
+                <input type="number" id="cpf" name="cpf" placeholder="CPF" required>
+                <i class='bx bx-id-card icon'></i>
+            </div>
+            <div class="input-group">
+                <!-- <label for="email">Email:</label> -->
+                <input type="email" id="email" name="email" placeholder="Email" required>
+                <i class='bx bx-mail-send icon'></i>
+            </div>
+            <div class="input-group">
+                <!-- <label for="telefone">Telefone:</label> -->
+                <input type="number" id="telefone" name="telefone" placeholder="Telefone" required>
+                <i class='bx bx-phone icon'></i>
+            </div>
+            <div class="input-group">
+                <!-- <label for="mensagem">Motivo do acesso:</label> -->
+                <input type="text" id="mensagem" name="mensagem" placeholder="Mensagem..." required>
+                <i class='bx bx-comment-detail icon'></i>
+            </div>
+            <button type="submit" class="entrar-btn">Entrar</button>
+            <p class="text-cadastro">Já está cadastradro?<a href="#">Login</a></p>
+        </form>
+    </div>
+    <footer class="cadastro-footer">© THE CONTROL - 2024</footer>
+    <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="http://threejs.org/examples/js/libs/stats.min.js"></script>
+    <script src="../../../static/js/script.js"></script>
+    <script src="../../../static/js/app.js"></script>
+    <script src="../../../static/js/particles.js"></script>
+</body>
+</html>
