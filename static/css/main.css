@@ -14,7 +14,7 @@
     --corSideBar: #fff;
     --corFonte: #707070;
     --corToggleInput: #ddd;
-    --corPrimaria: #fb3b3b;
+    --corPrimaria: rgba(122, 0, 141, 1);
 
     /* ==== TRANSICOES ==== */
     --tran-3: .3s ease;

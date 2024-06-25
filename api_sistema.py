@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request, render_template, redirect, url_for
 from flask_login import UserMixin,login_required,logout_user, LoginManager,login_user, current_user
 from models.model import db, Patrimonios, Cadastro, Usuario
+from sqlalchemy import select
 bp_sistema = Blueprint("sistema", __name__)
 
 
@@ -56,3 +57,7 @@ def login_usuario():
         else:
             return "Deu errado"
     return render_template("./sistema/login/login.html")
+
+@bp_sistema.route("/usuario/tabela/<int:sala>", methods=["POST", "GET"])
+def visualizar_patrimonio(sala):
+        return "visualizar sala " + str(sala)
