@@ -1,0 +1,18 @@
+<table>
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Local</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for patrimonio in patrimonios %}
+        <tr>
+            <td>{{ patrimonio.denominacao_de_imobiliario }}</td>
+            <td>{{ patrimonio.numero_de_etiqueta }}</td>
+            <td>{{ patrimonio.local }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

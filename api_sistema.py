@@ -2,12 +2,13 @@ from flask import Blueprint, jsonify, request, render_template, redirect, url_fo
 from flask_login import UserMixin,login_required,logout_user, LoginManager,login_user, current_user
 from models.model import db, Patrimonios, Cadastro, Usuario
 from sqlalchemy import select
+from ambientes import salas_educacional
 bp_sistema = Blueprint("sistema", __name__)
 
 
 @bp_sistema.route("/sistema")
 def index():
-    return render_template("./sistema/sistema.html")
+    return render_template("./sistema/layout.html")
 
 
 ##rota de acesso do formulário para petição de acesso ao sistema
@@ -58,6 +59,18 @@ def login_usuario():
             return "Deu errado"
     return render_template("./sistema/login/login.html")
 
-@bp_sistema.route("/usuario/tabela/<int:sala>", methods=["POST", "GET"])
-def visualizar_patrimonio(sala):
-        return "visualizar sala " + str(sala)
+
+@bp_sistema.route("/filtrar", methods=["POST", "GET"])
+def visualizar_patrimonio():
+    sala = request.args.get("sala")
+    if sala is None:
+        return "Erro: parâmetro sala não fornecido", 400
+    try:
+        sala_inteiro = int(sala)
+        patrimonios = Patrimonios.query.filter_by(local=sala_inteiro).all()
+    except ValueError:
+        patrimonios = Patrimonios.query.filter_by(local=sala).all()
+    
+    return render_template("./sistema/patrimonios.html", patrimonios=patrimonios)
+
+
