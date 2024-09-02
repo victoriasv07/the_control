@@ -4,14 +4,26 @@
             <th>Nome</th>
             <th>Descrição</th>
             <th>Local</th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
         {% for patrimonio in patrimonios %}
         <tr>
+            <td>{{ patrimonio.id }}</td>
             <td>{{ patrimonio.denominacao_de_imobiliario }}</td>
             <td>{{ patrimonio.numero_de_etiqueta }}</td>
             <td>{{ patrimonio.local }}</td>
+            <td>
+                <form action="{{ url_for('sistema.deletar_patrimonio')}}" method="post" style="display:inline;">
+                    <input type="hidden" name="patrimonio_id" value="{{ patrimonio.id }}">
+                    <button type="submit" class="btn btn-danger">Deletar</button>
+                </form>
+                <form action="{{ url_for('sistema.atualizar_patrimonio')}}" method="post" style="display:inline;">
+                    <input type="hidden" name="patrimonio_id" value="{{ patrimonio.id }}">
+                    <button type="submit" class="btn btn-danger">Atualizar</button>
+                </form>
+            </td>
         </tr>
         {% endfor %}
     </tbody>
