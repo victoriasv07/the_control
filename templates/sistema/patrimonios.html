@@ -15,11 +15,11 @@
             <td>{{ patrimonio.numero_de_etiqueta }}</td>
             <td>{{ patrimonio.local }}</td>
             <td>
-                <form action="{{ url_for('sistema.deletar_patrimonio')}}" method="post" style="display:inline;">
+                <form action="{{ url_for('user.deletar_patrimonio')}}" method="post" style="display:inline;">
                     <input type="hidden" name="patrimonio_id" value="{{ patrimonio.id }}">
                     <button type="submit" class="btn btn-danger">Deletar</button>
                 </form>
-                <form action="{{ url_for('sistema.atualizar_patrimonio')}}" method="post" style="display:inline;">
+                <form action="{{ url_for('user.atualizar_patrimonio')}}" method="post" style="display:inline;">
                     <input type="hidden" name="patrimonio_id" value="{{ patrimonio.id }}">
                     <button type="submit" class="btn btn-danger">Atualizar</button>
                 </form>

@@ -30,3 +30,8 @@ class Usuario(db.Model):
     mensagem = db.Column(db.Text, nullable=True)  # Corrected usage of Text type
 
 
+class Admin(db.Model):
+    __tablename__ = "admin"
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(45), nullable=True)
+    cpf = db.Column(db.String(11), nullable=True)  
