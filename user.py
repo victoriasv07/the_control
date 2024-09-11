@@ -6,8 +6,14 @@ bp_user = Blueprint("user", __name__)
 
 ##rota base sistemas
 @bp_user.route("/sistema")
+@login_required
 def index():
     return render_template("./sistema/layout.html")
+
+@bp_user.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('user.login_usuario'))
 
 ##rota de login usuario
 @bp_user.route("/login", methods=["POST", "GET"])
@@ -18,11 +24,13 @@ def login_usuario():
         user = Usuario.query.filter_by(cpf=cpf, email=email).first()
         admin = Admin.query.filter_by(cpf=cpf, email = email).first()
         if user:
+            login_user(user)
             return redirect(url_for("user.index"))
         if admin:
-            return redirect(url_for("./admin/admin_home.html"))
+            login_user(admin)
+            return "Admin logado"
         else:
-            return "Deu errado"
+            return "CPF ou Email errados"
     return render_template("./sistema/login.html")
 
 
@@ -43,6 +51,7 @@ def forms_acesso():
 
 #rota para filtrar salas a partir da navbar
 @bp_user.route("/filtrar", methods=["POST", "GET"])
+@login_required
 def visualizar_patrimonio():
     sala = request.args.get("sala")
     if sala is None:
@@ -53,10 +62,11 @@ def visualizar_patrimonio():
     except ValueError:
         patrimonios = Patrimonios.query.filter_by(local=sala).all()
 
-    return render_template("./sistema/patrimonios.html", patrimonios=patrimonios)
+    return render_template("./sistema/layout.html", patrimonios=patrimonios)
 
 ##rota de deletar patrimonios do usuario
 @bp_user.route("/deletar", methods=["POST"])
+@login_required
 def deletar_patrimonio():
     patrimonio_id = request.form.get('patrimonio_id')
     patrimonio = Patrimonios.query.get(patrimonio_id)
@@ -69,6 +79,7 @@ def deletar_patrimonio():
 
 ##rota para atualizar patrimônios
 @bp_user.route("/atualizar", methods=["POST"])
+@login_required
 def atualizar_patrimonio():
     patrimonio_id = request.form.get('patrimonio_id')
     patrimonio = Patrimonios.query.get(patrimonio_id)

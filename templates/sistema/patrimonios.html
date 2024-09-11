@@ -1,4 +1,6 @@
-<table>
+{% include 'sistema/navbar.html' %}
+{% block content %}
+<table></table>
     <thead>
         <tr>
             <th>Nome</th>
@@ -28,3 +30,4 @@
         {% endfor %}
     </tbody>
 </table>
+{% endblock %}
