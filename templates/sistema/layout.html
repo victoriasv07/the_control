@@ -14,7 +14,43 @@
         <section class="home">
             <div class="home-conteudo">
                 <h1 style="font-size: 20px;">SESI-185</h1>
-                {% include 'sistema/patrimonios.html' %}
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Denominação</th>
+                            <th>Número de Etiqueta</th>
+                            <th>Local</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if patrimonios %}
+                            {% for patrimonio in patrimonios %}
+                            <tr>
+                                <td>{{ patrimonio.id }}</td>
+                                <td>{{ patrimonio.denominacao_de_imobiliario }}</td>
+                                <td>{{ patrimonio.numero_de_etiqueta }}</td>
+                                <td>{{ patrimonio.local }}</td>
+                                <td>
+                                    <form action="{{ url_for('user.deletar_patrimonio') }}" method="post" style="display:inline;">
+                                        <input type="hidden" name="patrimonio_id" value="{{ patrimonio.id }}">
+                                        <button type="submit" class="btn btn-danger btn-sm">Deletar</button>
+                                    </form>
+                                    <form action="{{ url_for('user.atualizar_patrimonio') }}" method="post" style="display:inline;">
+                                        <input type="hidden" name="patrimonio_id" value="{{ patrimonio.id }}">
+                                        <button type="submit" class="btn btn-warning btn-sm">Atualizar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="5" class="text-center">Nenhum patrimônio encontrado.</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
             </div>
         </section>
         <!-- <div id="resultados"></div> -->
