@@ -6,16 +6,16 @@ bp_admin = Blueprint("admin", __name__)
 
 @bp_admin.route("/admin/home")
 def admin_home():
-    return render_template()
+    return "pagina do adm"
 
-@bp_admin.route("/usuario/autorizacao", methods=["GET"])
+@bp_admin.route("/admin/auth", methods=["GET"])
 def autorizacao_usuario_view():
     infos_usuarios = Cadastro.query.all()
     return render_template("./sistema/autorizacao_usuario.html", infos_usuarios=infos_usuarios)
 
 
     ##rota de autorização de usuario - troca de infos para outra tabela usuario
-@bp_admin.route("/usuario/autorizacao/<int:id>", methods=["POST"])
+@bp_admin.route("/usuario/auth/<int:id>", methods=["POST"])
 def autorizacao_usuario(id):
     autorizacao_usuario_selecionado = Cadastro.query.get(id)
     

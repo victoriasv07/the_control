@@ -8,6 +8,7 @@ bp_user = Blueprint("user", __name__)
 @bp_user.route("/sistema")
 @login_required
 def index():
+    
     return render_template("./sistema/layout.html")
 
 @bp_user.route('/logout')
@@ -28,7 +29,7 @@ def login_usuario():
             return redirect(url_for("user.index"))
         if admin:
             login_user(admin)
-            return "Admin logado"
+            return redirect(url_for("admin.admin_home"))
         else:
             return "CPF ou Email errados"
     return render_template("./sistema/login.html")
@@ -46,7 +47,7 @@ def forms_acesso():
         novo_usuario = Cadastro(nome=nome, cpf=cpf, telefone=telefone, email=email, mensagem=mensagem)
         db.session.add(novo_usuario)
         db.session.commit()
-        return "Concluido"
+        return redirect(url_for("login_usuario"))
     return render_template("./sistema/cadastro.html")
 
 #rota para filtrar salas a partir da navbar

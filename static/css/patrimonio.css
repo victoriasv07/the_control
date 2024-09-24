@@ -1,0 +1,89 @@
+:root{
+    /* ==== CORES ==== */
+    --corBackBody: #e8ecf7;
+    --corSideBar: #fff;
+    --corFonte: #707070;
+    --corToggleInput: #ddd;
+    --corPrimaria: rgba(122, 0, 141, 1);
+    --corSucess: #00c875;
+    --corDelete: #ea4335;
+
+    /* ==== TRANSICOES ==== */
+    --tran-3: .3s ease;
+    --tran-4: .4s ease;
+    --tran-5: .5s ease;
+}
+
+:root.dark{
+    --corBackBody: #1f2020;
+    --corSideBar: #242526;
+    --corFonte: #ccc;
+    --corToggleInput: #ddd;
+}
+
+.tabela{
+    background-color: var(--corSideBar);
+    border-radius: 16px;
+    padding: 20px 30px;
+    -webkit-box-shadow: 0px 0px 6px 2px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 0px 6px 2px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 6px 2px rgba(0,0,0,0.1);
+    border-spacing: 3px;
+}
+
+.tabela-header{
+
+}
+
+.tabela-linha{
+    text-align: left;
+}
+
+.tabela-coluna.etq{
+    text-align: center !important;
+}
+
+.tabela-coluna{
+    background-color: rgba(0, 0, 0, 0.075);
+    padding: 8px 5px;
+    border: 1px solid rgba(0, 0, 0, 0.085);
+}
+
+.tabela-coluna.id{
+    border-left: 6px solid var(--corPrimaria)
+}
+
+.tabela-coluna.btns{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    padding: 0 !important;
+    gap: 3px;
+    background-color: transparent;
+}
+
+.btn-deletar, .btn-atualizar{
+    border: none;
+    color: var(--corSideBar);
+    padding: 8px 15px;
+    min-width: 90px;
+    transition-duration: .2s;
+    font-size: 16px;
+}
+
+.btn-deletar:hover, .btn-atualizar:hover{
+    filter: brightness(1.2);
+    cursor: pointer;
+}
+
+.btn-deletar:active, .btn-atualizar:active{
+    transform: scale(0.95);
+}
+
+.btn-deletar{
+    background-color: var(--corDelete);
+}
+
+.btn-atualizar{
+    background-color: var(--corSucess);
+}

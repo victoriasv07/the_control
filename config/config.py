@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-
+import os
 class Config():
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:5e5i#123@localhost/projeto'
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
