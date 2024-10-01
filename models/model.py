@@ -10,7 +10,7 @@ class Usuario(db.Model, UserMixin):
     cpf = db.Column(db.String(11), nullable=True)  
     email = db.Column(db.String(45), nullable=True)
     telefone = db.Column(db.String(15), nullable=True) 
-    password = db.Column(db.String(128), nullable=False)
+    mensagem = db.Column(db.String(128), nullable=False)
 
 class Admin(db.Model, UserMixin):
     __tablename__ = "admin"

@@ -10,11 +10,15 @@
     <title>The Control</title>
 </head>
 <body>
-    {% include 'sistema/navbar.html' %}
+    {% include 'sistema/admin/navbar.html' %}
     {% block content %}
         <section class="home">
             <div class="home-conteudo">
-                <h1 style="font-size: 20px;">SESI-185</h1>
+                <form action="" method="post" style="display:inline;">
+                    <input type="hidden" name="patrimonio_id" value="">
+                    <button type="submit" class="btn-deletar">Criar</button>
+                </form>
+                <h1 style="font-size: 20px;">Admin Sala-{{sala}}</h1>
                 <table class="tabela">
                     <thead class="tabela-header">
                         <tr>

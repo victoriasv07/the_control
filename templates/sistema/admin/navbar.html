@@ -1,0 +1,225 @@
+<nav class="side-bar">
+    <header class="header">
+        <div class="header-div">
+            <span><img src="../../static/img/iconecfpQ.png"></span>
+            <h1 class="opacity">Admin <br> The Control</h1>
+            <i class='bx bx-chevron-left'></i>
+        </div>
+    </header>
+    <section class="menu">
+        <ul class="menu-itens">
+            <li class="menu-item">
+                <a href="#" class="a-item">
+                    <i class='bx bx-home-alt-2 icon'></i>
+                    <span class="nome-item opacity">Home</span>
+                </a>
+            </li>
+
+            <li class="menu-item salas" id="drop-itens">
+                <a href="#" class="a-item salas" id="dropdown-salas" onclick="abrirDrop('salas')">
+                    <i class='bx bx-chalkboard icon'></i>
+                    <span class="nome-item opacity">Salas de aula</span>
+                    <i class='bx bx-chevron-up'></i>
+                </a>
+                <ul class="menu-salas" id="drop-itens">
+                    {% for sala in range(1, 20) %}
+                    <li class="lista-sala menu-{{sala}}">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala=sala)}}" class="sala-link">Sala {{sala}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li class="menu-item educacional" id="drop-itens">
+                <a href="#" class="a-item educacional" id="dropdown-salas" onclick="abrirDrop('educacional')">
+                    <i class='bx bx-book-open icon'></i>
+                    <span class="nome-item opacity">Setor educação</span>
+                    <i class='bx bx-chevron-up'></i>
+                </a>
+                <ul class="menu-educacional" id="drop-itens">
+                    <li class="lista-sala menu-sala1">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='BIBLIOTECA')}}" class="sala-link">Biblioteca</a>
+                    </li>
+                    <li class="lista-sala menu-sala2"> 
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='LIE 01')}}" class="sala-link">Lie 01</a>
+                    </li>
+                    <li class="lista-sala menu-sala3">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='LIE 02')}}" class="sala-link">Lie 02</a>
+                    </li>
+                    <li class="lista-sala menu-sala4">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='LABORATORIO DE FISICA')}}" class="sala-link">Lab. de física</a>
+                    </li>
+                    <li class="lista-sala menu-sala5">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='LABORATORIO DE BIOLOGIA')}}" class="sala-link">Lab. de biologia</a>
+                    </li>
+                    <li class="lista-sala menu-sala6">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='MULTIDISCIPLINAR')}}" class="sala-link">Multidisciplinar</a>
+                    </li>
+                    <li class="lista-sala menu-sala7">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='SALA MAKER')}}" class="sala-link">Sala maker</a>
+                    </li>
+                    <li class="lista-sala menu-sala8">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='SALA DE MUSICA')}}" class="sala-link">Sala de música</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="menu-item atendimento" id="drop-itens">
+                <a href="#" class="a-item atendimento" id="dropdown-salas" onclick="abrirDrop('atendimento')">
+                    <i class='bx bx-support icon'></i>
+                    <span class="nome-item opacity">Atendimento</span>
+                    <i class='bx bx-chevron-up'></i>
+                </a>
+                <ul class="menu-atendimento" id="drop-itens">
+                    <li class="lista-sala menu-sala1">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='PORTARIA')}}" class="sala-link">Portaria</a>
+                    </li>
+                    <li class="lista-sala menu-sala2">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='SECRETARIA')}}" class="sala-link">Secretaria</a>
+                    </li>
+                    
+                </ul>
+            </li>
+
+            <li class="menu-item convivencia" id="drop-itens">
+                <a href="#" class="a-item convivencia" id="dropdown-salas" onclick="abrirDrop('convivencia')">
+                    <i class='bx bx-group icon'></i>
+                    <span class="nome-item opacity">Convivência</span>
+                    <i class='bx bx-chevron-up'></i>
+                </a>
+                <ul class="menu-convivencia" id="drop-itens">
+                    <li class="lista-sala menu-sala1">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='PATIO PAVILHAO 1')}}" class="sala-link">Pátio pavilhão 01</a>
+                    </li>
+                    <li class="lista-sala menu-sala2">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='PATIO PAVILHAO 2')}}" class="sala-link">Pátio pavilhão 02</a>
+                    </li>
+                    <li class="lista-sala menu-sala3">
+                        <a href="#" class="sala-link">Pátio 02</a>
+                    </li>
+                    
+                </ul>
+            </li>
+
+            <li class="menu-item alimentacao" id="drop-itens">
+                <a href="#" class="a-item alimentacao" id="dropdown-salas" onclick="abrirDrop('alimentacao')">
+                    <i class="bx bx-bowl-hot icon"></i>
+                    <span class="nome-item opacity">Alimentação</span>
+                    <i class='bx bx-chevron-up'></i>
+                </a>
+                <ul class="menu-alimentacao" id="drop-itens">
+                    <li class="lista-sala menu-sala1">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='COZINHA')}}" class="sala-link">Cozinha</a>
+                    </li>
+                    <li class="lista-sala menu-sala2">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='REFEITORIO')}}" class="sala-link">Refeitório</a>
+                    </li>
+                    
+                </ul>
+            </li>
+
+            <li class="menu-item administrativo" id="drop-itens">
+                <a href="#" class="a-item administrativo" id="dropdown-salas" onclick="abrirDrop('administrativo')">
+                    <i class="bx bx-collection icon"></i>
+                    <span class="nome-item opacity">Administrativo</span>
+                    <i class='bx bx-chevron-up'></i>
+                </a>
+                <ul class="menu-administrativo" id="drop-itens">
+                    <li class="lista-sala menu-sala1">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='ATENDIMENTO DE PAIS')}}" class="sala-link">Atendimento de pais</a>
+                    </li>
+                    <li class="lista-sala menu-sala2">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='DIRETORIA')}}" class="sala-link">Diretoria</a>
+                    </li>
+                    <li class="lista-sala menu-sala2">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='COORDENACAO')}}" class="sala-link">Coordenação</a>
+                    </li>
+                    <li class="lista-sala menu-sala2">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='ADMINISTRATIVO')}}" class="sala-link">Administração</a>
+                    </li>
+                    <li class="lista-sala menu-sala2">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='SERVIDOR')}}" class="sala-link">Servidor</a>
+                    </li>
+                    
+                </ul>
+            </li>
+
+            <li class="menu-item esportivo" id="drop-itens">
+                <a href="#" class="a-item esportivo" id="dropdown-salas" onclick="abrirDrop('esportivo')">
+                    <i class='bx bx-basketball icon'></i>
+                    <span class="nome-item opacity">Esporte</span>
+                    <i class='bx bx-chevron-up'></i>
+                </a>
+                <ul class="menu-esportivo" id="drop-itens">
+                    <li class="lista-sala menu-sala1">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='ALMOXARIFADO PAVILHAO 02')}}" class="sala-link">Almoxarifado 02</a>
+                    </li>
+                    <li class="lista-sala menu-sala2">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='DCAT')}}" class="sala-link">Dcat</a>
+                    </li>
+                    <li class="lista-sala menu-sala2">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='COORDENACAO CAT')}}" class="sala-link">Coordenação Cat</a>
+                    </li>
+                    <li class="lista-sala menu-sala2">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='QUADRA')}}" class="sala-link">Quadra</a>
+                    </li>
+                    <li class="lista-sala menu-sala2">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='VESTIARIO 11')}}" class="sala-link">Vestiário</a>
+                    </li>
+                    <li class="lista-sala menu-sala2">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='BALNEARIO')}}" class="sala-link">Balneário</a>
+                    </li>
+                    <li class="lista-sala menu-sala2">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='SALA FITNESS')}}" class="sala-link">Sala fitness</a>
+                    </li>
+                    
+                </ul>
+            </li>
+
+            <li class="menu-item profissional" id="drop-itens">
+                <a href="#" class="a-item profissional" id="dropdown-salas" onclick="abrirDrop('profissional')">
+                    <i class='bx bx-briefcase icon' ></i>
+                    <span class="nome-item opacity">Setor profissional</span>
+                    <i class='bx bx-chevron-up'></i>
+                </a>
+                <ul class="menu-profissional" id="drop-itens">
+                    <li class="lista-sala menu-sala1">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='MANUTENCAO')}}" class="sala-link">Manutenção</a>
+                    </li>
+                    <li class="lista-sala menu-sala2">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='COPA')}}" class="sala-link">Copa</a>
+                    </li>
+                    <li class="lista-sala menu-sala2">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='SALA DE INSPETORES')}}" class="sala-link">Sala inspetores</a>
+                    </li>
+                    <li class="lista-sala menu-sala2">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='SALA PROFESSORES')}}" class="sala-link">Sala professores</a>
+                    </li>
+                    <li class="lista-sala menu-sala2">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='SALA TERCEIRIZADOS')}}" class="sala-link">Sala terceirizados</a>
+                    </li>
+                    <li class="lista-sala menu-sala2">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='SALA DE CQV')}}" class="sala-link">Sala de CQV</a>
+                    </li>
+                    <li class="lista-sala menu-sala2">
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='SALA  DE APOIO')}}" class="sala-link">Sala de apoio</a>
+                    </li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <div>
+            <ul class="controle">
+                <li class="menu-item toggle dark">
+                    <a href="#" class="a-item">
+                        <i></i>
+                        <span class="nome-item opacity">Modo escuro</span>
+                    </a>
+                    <div class="toggle-switch">
+                        <span class="switch"></span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+</nav>
