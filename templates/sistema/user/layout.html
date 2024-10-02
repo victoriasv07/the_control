@@ -14,46 +14,51 @@
     {% block content %}
         <section class="home">
             <div class="home-conteudo">
-                <form action="" method="post" style="display:inline;">
-                    <input type="hidden" name="patrimonio_id" value="">
-                    <button type="submit" class="btn-deletar">Criar</button>
-                </form>
-                <h1 style="font-size: 20px;">SESI-185 Sala-{{sala}}</h1>
-                <table class="tabela">
-                    <thead class="tabela-header">
-                        <tr>
-                            <th>ID</th>
-                            <th>Denominação</th>
-                            <th>Número de Etiqueta</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% if patrimonios %}
-                            {% for patrimonio in patrimonios %}
-                            <tr class="tabela-linha">
-                                <td class="tabela-coluna id">{{ patrimonio.id }}</td>
-                                <td class="tabela-coluna">{{ patrimonio.denominacao_de_imobiliario }}</td>
-                                <td class="tabela-coluna etq">{{ patrimonio.numero_de_etiqueta }}</td>
-                                <td class="tabela-coluna btns">
-                                    <form action="{{ url_for('user.deletar_patrimonio') }}" method="post" style="display:inline;">
-                                        <input type="hidden" name="patrimonio_id" value="{{ patrimonio.id }}">
-                                        <button type="submit" class="btn-deletar">Deletar</button>
-                                    </form>
-                                    <form action="{{ url_for('user.atualizar_patrimonio') }}" method="post" style="display:inline;">
-                                        <input type="hidden" name="patrimonio_id" value="{{ patrimonio.id }}">
-                                        <button type="submit" class="btn-atualizar">Atualizar</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        {% else %}
+                <section class="sec-bar">
+                    <form action="" method="post" style="display:inline;">
+                        <input type="hidden" name="patrimonio_id" value="">
+                        <button type="submit" class="btn-deletar">Criar</button>
+                    </form>
+                </section>
+                <section class="sec-tabela">
+                    <table class="tabela">
+                        <h1 style="font-size: 20px;">SESI-185 | Sala {{sala}}</h1>
+                        <br>
+                        <thead class="tabela-header">
                             <tr>
-                                <td colspan="5" class="text-center">Nenhum patrimônio encontrado.</td>
+                                <th>ID</th>
+                                <th>Denominação</th>
+                                <th>Número de Etiqueta</th>
+                                <th>Ações</th>
                             </tr>
-                        {% endif %}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {% if patrimonios %}
+                                {% for patrimonio in patrimonios %}
+                                <tr class="tabela-linha">
+                                    <td class="tabela-coluna id">{{ patrimonio.id }}</td>
+                                    <td class="tabela-coluna">{{ patrimonio.denominacao_de_imobiliario }}</td>
+                                    <td class="tabela-coluna etq">{{ patrimonio.numero_de_etiqueta }}</td>
+                                    <td class="tabela-coluna btns">
+                                        <form action="{{ url_for('user.deletar_patrimonio') }}" method="post" style="display:inline; width: 100%;">
+                                            <input type="hidden" name="patrimonio_id" value="{{ patrimonio.id }}">
+                                            <button type="submit" class="btn-deletar">Deletar</button>
+                                        </form>
+                                        <form action="{{ url_for('user.atualizar_patrimonio') }}" method="post" style="display:inline; width: 100%;">
+                                            <input type="hidden" name="patrimonio_id" value="{{ patrimonio.id }}">
+                                            <button type="submit" class="btn-atualizar">Atualizar</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="5" class="text-center">Nenhum patrimônio encontrado.</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </section>
             </div>
         </section>
         <!-- <div id="resultados"></div> -->
