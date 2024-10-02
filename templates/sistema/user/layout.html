@@ -15,9 +15,27 @@
         <section class="home">
             <div class="home-conteudo">
                 <section class="sec-bar">
-                    <form action="" method="post" style="display:inline;">
-                        <input type="hidden" name="patrimonio_id" value="">
-                        <button type="submit" class="btn-deletar">Criar</button>
+                    <form action="" method="post" class="criar-btn">
+                        <input type="hidden" name="criar_btn" value="">
+                        <button type="submit" class="btn-criar">
+                            <i class='bx bx-plus icon'></i>
+                            <span>Criar</span>
+                        </button>
+                    </form>
+
+                    <form action="" method="post" class="procurar-btn">
+                        <input type="text" name="procurar_btn" id="procurar_btn">
+                        <button type="submit">
+                            <i class='bx bx-search icon'></i>
+                        </button>
+                    </form>
+
+                    <form action="" method="post" class="exportar-btn">
+                        <input type="hidden" name="exportar_btn" value="">
+                        <button type="submit" class="btn-criar">
+                            <i class='bx bxs-file-pdf icon'></i>
+                            <span>Exportar</span>
+                        </button>
                     </form>
                 </section>
                 <section class="sec-tabela">

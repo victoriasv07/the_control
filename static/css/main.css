@@ -15,6 +15,7 @@
     --corFonte: #707070;
     --corToggleInput: #ddd;
     --corPrimaria: rgba(122, 0, 141, 1);
+    --corFonteBtn: #fff;
 
     /* ==== TRANSICOES ==== */
     --tran-3: .3s ease;
@@ -135,7 +136,7 @@ body{
 }
 
 .menu-item:hover .a-item .nome-item, .menu-item:hover .icon, .menu-item:hover .bx-chevron-up{
-    color: var(--corSideBar);
+    color: var(--corFonteBtn);
 }
 
 .menu-item.toggle:hover, 
