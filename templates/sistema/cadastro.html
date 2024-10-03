@@ -20,7 +20,7 @@
     </div>
     <div class="container">
         <h1 class="form-titulo">Cadastro</h1>
-        <form action="/" method="post" class="form">
+        <form action="{{ url_for('user.register') }}" method="post" class="form">
             <div class="input-group">
                 <!-- <label for="nome">Nome completo:</label> -->
                 <input type="name" id="nome" name="nome" placeholder="Nome" required >
@@ -46,7 +46,7 @@
                 <input type="text" id="mensagem" name="mensagem" placeholder="Mensagem..." required>
                 <i class='bx bx-comment-detail icon'></i>
             </div>
-            <button type="submit" class="entrar-btn">Entrar</button>
+            <button type="submit"  class="entrar-btn">Entrar</button>
             <p class="text-cadastro">Já está cadastradro?<a href="/usuario/login">Login</a></p>
         </form>
     </div>

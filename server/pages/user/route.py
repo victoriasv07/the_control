@@ -32,13 +32,13 @@ def logout():
     Em seguida, redireciona o usu rio para a p gina de login.
     """
     logout_user()
-    return redirect(url_for('user.login_usuario'))
+    return redirect(url_for('user.login'))
 
 
 
 ##rota de login usuario
 @bp_user.route("/login", methods=["POST", "GET"])
-def login_usuario():
+def login():
     """
     Essa rota é responsável pelo login do usuário no sistema.
 
@@ -71,7 +71,7 @@ def login_usuario():
 
 
 @bp_user.route("/register", methods=["POST", "GET"])
-def forms_acesso():
+def register():
     """
     Essa rota é responsável pelo cadastro de usuários no sistema.
 
@@ -94,7 +94,7 @@ def forms_acesso():
         db.session.commit()
 
         # Redirecionar para a página de login
-        return redirect(url_for("login_usuario"))
+        return redirect(url_for("user.login"))
 
     # Se o método for GET, retorna o formulário de cadastro
     return render_template("./sistema/cadastro.html")
