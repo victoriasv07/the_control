@@ -81,9 +81,10 @@ body{
     color: var(--corFonte);
 }
 
-.header-div i{
+.abrir-nav{
     position: absolute;
-    right: -25px;
+    left: 278px;
+    top: 20px;
     width: 25px;
     height: 25px;
     background-color: var(--corPrimaria);
@@ -93,6 +94,13 @@ body{
     align-items: center;
     font-size: 22px;
     color: var(--corSideBar);
+    transform: translateX(-50%);
+    z-index: 2;
+    color: var(--corFonteBtn);
+}
+
+.abrir-nav.close{
+    left: 100px;
 }
 
 .home{

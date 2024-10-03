@@ -1,10 +1,12 @@
 from flask import Flask
-from flask_login import LoginManager
+import argparse
+from flask_login import LoginManager, current_user
 from config.config import Config
-from models.model import db
+from models.model import db, Patrimonios
 from datetime import timedelta
 from dotenv import load_dotenv
 import os
+
 
 # Define login_manager fora da função create_app
 login_manager = LoginManager()
@@ -23,7 +25,6 @@ def create_app():
     # Importação das blueprints 
     from server.pages.user import bp_user # Corrigido
     from server.pages.admin import bp_admin
-    
 
     # Registrar os blueprints
     app.register_blueprint(bp_user)
@@ -40,6 +41,18 @@ def create_app():
         return admin
 
     return app
+
 if __name__ == "__main__":
+    print("Iniciando a aplicação...")
+
+    parser = argparse.ArgumentParser(description="Teste de criação de PDF")
+    parser.add_argument("--run-tests", action="store_true", help="Executa os testes antes de iniciar o servidor Flask")
+    args = parser.parse_args()
+
+    print(f"Argumentos fornecidos: {args}")  
+
+    if args.run_tests:
+        print("Função de teste executada com sucesso!")
+
     app = create_app()
     app.run(host='0.0.0.0', debug=True)

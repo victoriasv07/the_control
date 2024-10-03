@@ -1,15 +1,15 @@
+<i class='bx bx-chevron-left abrir-nav'></i>
 <nav class="side-bar">
     <section class="menu">
         <header class="header">
             <div class="header-div">
                 <span><img src="../../static/img/iconecfpQ.png"></span>
                 <h1 class="opacity">The Control</h1>
-                <i class='bx bx-chevron-left'></i>
             </div>
         </header>
         <ul class="menu-itens">
             <li class="menu-item">
-                <a href="#" class="a-item">
+                <a href="{{url_for('user.home')}}" class="a-item">
                     <i class='bx bx-home-alt-2 icon'></i>
                     <span class="nome-item opacity">Home</span>
                 </a>
@@ -88,13 +88,13 @@
                 </a>
                 <ul class="menu-convivencia" id="drop-itens">
                     <li class="lista-sala menu-sala1">
-                        <a href="{{url_for('user.visualizar_patrimonio',sala='PATIO PAVILHAO 1')}}" class="sala-link">Pátio pavilhão 01</a>
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='PATIO PAVILHAO 01')}}" class="sala-link">Pátio pavilhão 01</a>
                     </li>
                     <li class="lista-sala menu-sala2">
-                        <a href="{{url_for('user.visualizar_patrimonio',sala='PATIO PAVILHAO 2')}}" class="sala-link">Pátio pavilhão 02</a>
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='PATIO PAVILHAO 02')}}" class="sala-link">Pátio pavilhão 02</a>
                     </li>
                     <li class="lista-sala menu-sala3">
-                        <a href="#" class="sala-link">Pátio 02</a>
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='PATIO 02')}}" class="sala-link">Pátio 02</a>
                     </li>
                     
                 </ul>
@@ -192,13 +192,13 @@
                         <a href="{{url_for('user.visualizar_patrimonio',sala='SALA DE INSPETORES')}}" class="sala-link">Sala inspetores</a>
                     </li>
                     <li class="lista-sala menu-sala2">
-                        <a href="{{url_for('user.visualizar_patrimonio',sala='SALA PROFESSORES')}}" class="sala-link">Sala professores</a>
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='SALA DOS PROFESSORES')}}" class="sala-link">Sala professores</a>
                     </li>
                     <li class="lista-sala menu-sala2">
                         <a href="{{url_for('user.visualizar_patrimonio',sala='SALA TERCEIRIZADOS')}}" class="sala-link">Sala terceirizados</a>
                     </li>
                     <li class="lista-sala menu-sala2">
-                        <a href="{{url_for('user.visualizar_patrimonio',sala='SALA DE CQV')}}" class="sala-link">Sala de CQV</a>
+                        <a href="{{url_for('user.visualizar_patrimonio',sala='SALA CQV')}}" class="sala-link">Sala de CQV</a>
                     </li>
                     <li class="lista-sala menu-sala2">
                         <a href="{{url_for('user.visualizar_patrimonio',sala='SALA  DE APOIO')}}" class="sala-link">Sala de apoio</a>
@@ -212,7 +212,7 @@
         <div>
             <ul class="controle">
                 <li class="menu-item">
-                    <a href="/logout" class="a-item">
+                    <a href="{{url_for('user.logout')}}" class="a-item">
                         <i class='bx bx-log-out icon'></i>
                         <span class="nome-item opacity">Sair</span>
                     </a>

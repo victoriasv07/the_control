@@ -39,6 +39,7 @@ switchT.addEventListener('click', () => {
 menuBtn.addEventListener('click', () => {
     sideBar.classList.toggle('close')
     home.classList.toggle('close')
+    menuBtn.classList.add('close')
     dropItens.forEach(element => {
         element.classList.remove('mostrar')
     })
@@ -52,6 +53,7 @@ menuBtn.addEventListener('click', () => {
                 element.style.opacity = 0
             });
             switchToggle.style.right = "unset"
+            menuBtn.classList.add('close')
         } else {
             localStorage.setItem('status', 'aberto')
             textos.forEach(element => {
@@ -61,8 +63,9 @@ menuBtn.addEventListener('click', () => {
                 element.style.opacity = 1
             })
             switchToggle.style.right = 0
+            menuBtn.classList.remove('close')
         }
-    }, 100)
+    }, 1)
 })
 
 function verificarJanela(){
@@ -74,6 +77,7 @@ function verificarJanela(){
             element.style.opacity = 0
         });
         switchToggle.style.right = "unset"
+        menuBtn.classList.add('close')
     } else {
         textos.forEach(element => {
             element.style.opacity = 1
@@ -82,6 +86,7 @@ function verificarJanela(){
             element.style.opacity = 1
         })
         switchToggle.style.right = 0
+        menuBtn.classList.remove('close')
     }
 }
 

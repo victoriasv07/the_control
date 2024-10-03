@@ -8,6 +8,10 @@
     --corSucess: #00c875;
     --corDelete: #ea4335;
     --corFonteBtn: #fff;
+    --corPreto01: rgba(0, 0, 0, 0.1);
+    --corPreto015: rgba(0, 0, 0, 0.15);
+    --corPreto08: rgba(0, 0, 0, 0.8);
+    --corPreto085: rgba(0, 0, 0, 0.85);
 
     /* ==== TRANSICOES ==== */
     --tran-3: .3s ease;
@@ -20,6 +24,10 @@
     --corSideBar: #242526;
     --corFonte: #ccc;
     --corToggleInput: #ddd;
+    --corPreto01: rgba(255, 255, 255, 0.1);
+    --corPreto015: rgba(255, 255, 255, 0.15);
+    --corPreto08: rgba(255, 255, 255, 0.8);
+    --corPreto085: rgba(255, 255, 255, 0.85);
 }
 
 .tabela{
@@ -44,11 +52,80 @@
 .criar-btn button, .exportar-btn button{
     display: flex;
     align-items: center;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    background-color: var(--corSucess);
+    gap: 8px;
+    font-size: 14px;
+}
+
+.criar-btn button i, .exportar-btn button i{
+    min-width: unset !important;
+}
+
+.exportar-btn button{
+    background-color: var(--corDelete);
+}
+
+.criar-btn button span,
+.exportar-btn button span,
+.criar-btn button i,
+.exportar-btn button i{
+    color: var(--corFonteBtn);
+}
+
+.criar-btn button:hover, .exportar-btn button:hover{
+    cursor: pointer;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5)
+}
+
+.criar-btn button:active, .exportar-btn button:active{
+    transform: translateY(3px);
 }
 
 .procurar-btn{
     display: flex;
     align-items: center;
+    font-size: 14px;
+}
+
+.procurar-btn input{
+    border: 2px solid var(--corPreto01);
+    height: 30px;
+    outline: none;
+    border-radius: 4px;
+    padding: 3px 15px;
+    background-color: transparent;
+    width: clamp(200px, 25vw, 800px);
+}
+
+.procurar-btn input:focus{
+    border: 2px solid var(--corPreto08);
+    color: var(--corPreto08);
+}
+
+.procurar-btn input:focus ~ label button i{
+    color: var(--corPreto08);
+}
+
+.procurar-btn label button{
+    border: none;
+    background-color: transparent;
+    position: absolute;
+}
+
+.procurar-btn label{
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.procurar-btn label button i{
+    color: var(--corPreto015);
+    font-size: 28px;
+    transform: translateX(calc(-100% - 14px));
+    min-width: unset;
 }
 
 .tabela-linha{
@@ -86,6 +163,7 @@
     width: 100%;
     transition-duration: .2s;
     font-size: 16px;
+    letter-spacing: 1px;
 }
 
 .btn-deletar:hover{

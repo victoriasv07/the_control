@@ -1,14 +1,25 @@
-from flask import Blueprint, jsonify, request, render_template, redirect, url_for, flash, session
+from flask import Blueprint, jsonify, request, render_template, redirect, url_for, flash, session, send_file
 from flask_login import login_required, logout_user, login_user, current_user
 from models.model import db, Patrimonios, Cadastro, Usuario, Admin
+from utils.pdf_generator import criar_pdf
 
 bp_user = Blueprint("user", __name__)
+
+
+
+@bp_user.route("/home")
+@login_required
+def home():
+    return render_template("./sistema/user/home.html")
 
 ##rota base sistemas
 @bp_user.route("/sistema")
 @login_required
-def index():
+def sistema():
     return render_template("./sistema/user/layout.html")
+
+
+
 
 
 @bp_user.route('/logout')
@@ -45,7 +56,7 @@ def login_usuario():
         if user:
             # Se o usuário for encontrado, loga o usuário no sistema
             login_user(user)
-            return redirect(url_for("user.index"))
+            return redirect(url_for("user.home"))
         if admin:
             # Se o administrador for encontrado, loga o administrador no sistema
             login_user(admin)
@@ -188,11 +199,28 @@ def atualizar_patrimonio():
         return redirect(url_for('user.visualizar_patrimonio'))
 
 
-
 @bp_user.route("/criar", methods =["POST"])
 @login_required
 def criar_patrimonio():
     pass
+
+@bp_user.route("/exportar", methods=["GET", "POST"])
+@login_required
+def exportar():
+    """
+    Essa rota exporta a tabela de patrimônios para um arquivo PDF.
+
+    Ela recebe o parâmetro "sala" via GET e o usa para filtrar os patrimônios.
+    Se o parâmetro "sala" for fornecido, ele exporta os patrimônios dessa sala.
+    Caso contrário, ele retorna todos os patrimônios.
+
+    A rota chama a função criar_pdf() para gerar o arquivo PDF.
+    """
+    args = request.args.get("sala")
+    pdf_filename = criar_pdf(args)
+    # Retorna o arquivo PDF para download
+    return send_file(pdf_filename, as_attachment=True)
+
 
 #teste de funcionalidade de camera
 @bp_user.route("/camera")

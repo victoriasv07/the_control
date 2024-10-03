@@ -23,14 +23,16 @@
                         </button>
                     </form>
 
-                    <form action="" method="post" class="procurar-btn">
-                        <input type="text" name="procurar_btn" id="procurar_btn">
-                        <button type="submit">
-                            <i class='bx bx-search icon'></i>
-                        </button>
+                    <form action="" method="get" class="procurar-btn">
+                        <input type="text" name="procurar_btn" id="procurar_btn" placeholder="Pesquisar...">
+                        <label for="procurar_btn">
+                            <button type="submit">
+                                <i class='bx bx-search icon'></i>
+                            </button>
+                        </label>
                     </form>
 
-                    <form action="" method="post" class="exportar-btn">
+                    <form action="{{ url_for('user.exportar', sala=sala) }}" method="post" class="exportar-btn">
                         <input type="hidden" name="exportar_btn" value="">
                         <button type="submit" class="btn-criar">
                             <i class='bx bxs-file-pdf icon'></i>
@@ -41,6 +43,7 @@
                 <section class="sec-tabela">
                     <table class="tabela">
                         <h1 style="font-size: 20px;">SESI-185 | Sala {{sala}}</h1>
+                        {{current_user}}
                         <br>
                         <thead class="tabela-header">
                             <tr>
