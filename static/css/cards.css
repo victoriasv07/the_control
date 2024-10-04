@@ -6,6 +6,7 @@
     --corToggleInput: #ddd;
     --corPrimaria: rgba(122, 0, 141, 1);
     --corSucess: #00c875;
+    --corSucess2: rgba(0, 200, 117, .2);
     --corDelete: #ea4335;
     --corDelete2: rgba(234, 67, 53, .2);
     --corFonteBtn: #fff;
@@ -29,7 +30,7 @@
     --corPreto05: rgba(255, 255, 255, 0.4);
 }
 
-.delete_div{
+.delete_div, .cadastrar_div{
     display: none;
     opacity: 0;
     position: absolute;
@@ -40,7 +41,7 @@
     backdrop-filter: blur(1px);
 }
 
-.delete_card{
+.delete_card, .cadastrar_card{
     opacity: 0;
     width: 300px;
     background-color: var(--corSideBar);
@@ -49,7 +50,6 @@
     justify-content: center;
     text-align: center;
     padding: 40px 20px;
-    grid-area: 10px;
     box-shadow: 0 0 8px var(--corPreto015);
     border-radius: 16px;
     position: absolute;
@@ -59,32 +59,40 @@
     transform-origin: center;
 }
 
-.delete_titulo{
+.cadastrar_card{
+    width: 500px !important;
+}
+
+.delete_titulo, .cadastrar_titulo{
     font-size: 20px;
     font-weight: 800;
 }
 
-.bx-trash.icon{
+.bx-trash.icon, .bxs-add-to-queue.icon{
     min-width: unset;
     color: var(--corDelete);
-    animation: animacao_icon 2s infinite;
+    animation: animacao_icon 3s infinite;
     font-size: 80px;
     margin: 20px 0;
 }
 
-.delete_texto{
+.bxs-add-to-queue.icon{
+    color: var(--corSucess) !important;
+}
+
+.delete_texto, .cadastrar_texto{
     font-size: 16px;
     margin-bottom: 20px;
 }
 
-.delete_btns{
+.delete_btns, .cadastrar_btns{
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
 }
 
-.delete_confirmar{
+.delete_confirmar, .cadastrar_confirmar{
     border: none;
     font-weight: 600;
     font-size: 14px;
@@ -94,12 +102,17 @@
     padding: 5px 50px;
 }
 
-.delete_confirmar:hover{
+.cadastrar_confirmar{
+    background-color: var(--corSucess) !important;
+    padding: 5px 100px !important;
+}
+
+.delete_confirmar:hover, .cadastrar_confirmar:hover{
     filter: brightness(.85);
     cursor: pointer;
 }
 
-.delete_cancelar{
+.delete_cancelar, .cadastrar_cancelar{
     border: none;
     font-weight: 600;
     font-size: 14px;
@@ -109,8 +122,73 @@
     padding: 5px 50px;
 }
 
+.cadastrar_cancelar{
+    color: var(--corSucess) !important;
+    padding: 5px 100px !important;
+}
+
 .delete_cancelar:hover{
     background-color: var(--corDelete2);
+    cursor: pointer;
+}
+
+.cadastrar_cancelar:hover{
+    background-color: var(--corSucess2);
+    cursor: pointer;
+}
+
+.cadastrar_card{
+    display: flex;
+    align-items: center;
+}
+
+.cadastrar_input_group{
+    display: flex;
+    align-items: center;
+    width: 80%;
+    padding: 0 10%;
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.cadastrar_input_group i{
+    min-width: unset;
+    position: absolute;
+    left: 10%;
+    font-size: 36px;
+    margin-bottom: 3px;
+}
+
+.cadastrar_input{
+    width: 100%;
+    height: 36px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 3px solid var(--corPreto05);
+    outline: none;
+    padding-left: 40px;
+}
+
+.cadastrar_input:focus{
+    border-bottom: 3px solid var(--corSucess);
+    padding-left: 44px;
+}
+
+.cadastrar_input:focus + .icon.cadastrar{
+    color: var(--corSucess) !important;
+}
+
+.cadastrar_input[type=number]::-webkit-inner-spin-button{
+    display: none;
+}
+
+.select{
+    appearance: none; /* Remove a aparência padrão (seta), mas pode variar entre navegadores */
+    -webkit-appearance: none; /* Safari */
+    -moz-appearance: none; /* Firefox */
+}
+
+.select:hover{
     cursor: pointer;
 }
 

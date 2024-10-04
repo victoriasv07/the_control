@@ -1,4 +1,4 @@
-<div id="deleteDiv" class="delete_div" style="display: none; opacity: 0;">
+<div id="deleteDiv" class="delete_div">
     <div id="deleteCard" class="delete_card" style="opacity: 0; transform: translate(-50%, -50%) scale(0);">
         <p class="delete_titulo">Deseja excluir o item?</p>
         <i class='bx bx-trash icon'></i>
@@ -13,4 +13,42 @@
             </div>
         </form>
     </div>
+</div>
+
+<div class="cadastrar_div">
+    <form method="post" class="cadastrar_card">
+        <p class="cadastrar_titulo">Cadastrar novo patrimônio</p>
+        <i class='bx bxs-add-to-queue icon'></i>
+        <p class="cadastrar_texto">Preencha os campos abaixo para cadastrar um novo patrimônio.</p>
+
+        <div class="cadastrar_input_group">
+            <input type="number" class="cadastrar_input" name="cadastrar_id" placeholder="Id do patrimônio" required>
+            <i class='bx bx-barcode icon cadastrar'></i>
+        </div>
+        <div class="cadastrar_input_group">
+            <input type="number" class="cadastrar_input" name="cadastrar_numero_de_etiqueta" placeholder="Número de etiqueta" required>
+            <i class='bx bx-purchase-tag-alt icon cadastrar'></i>
+        </div>
+        <div class="cadastrar_input_group">
+            <input type="text" class="cadastrar_input" name="cadastrar_nome" placeholder="Nome do patrimônio" required>
+            <i class='bx bx-pencil icon cadastrar'></i>
+        </div>
+        <div class="cadastrar_input_group">
+            <input type="text" class="cadastrar_input calendario" name="cadastrar_data_de_chegada" placeholder="Data de chegada" required>
+            <i class='bx bx-calendar icon cadastrar'></i>
+        </div>
+        <div class="cadastrar_input_group">
+            <!-- <input type="" class="cadastrar_input" name="cadastrar_local" required> -->
+            <select name="cadastrar_local" class="cadastrar_input select" id="cadastrar_input" required>
+                <option value="" disabled selected>Local</option>
+                <option value="BIBLIOTECA">BIBLIOTECA</option>
+            </select>
+            <i class='bx bx-current-location icon cadastrar'></i>
+        </div>
+
+        <div class="cadastrar_btns">
+            <button type="submit" class="cadastrar_confirmar">Cadastrar</button>
+            <button type="button" class="cadastrar_cancelar" onclick="pop_up_cadastrar_cancelar()">Cancelar</button>
+        </div>
+    </form>
 </div>

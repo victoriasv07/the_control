@@ -18,13 +18,13 @@
         <section class="home">
             <div class="home-conteudo">
                 <section class="sec-bar">
-                    <form action="" method="post" class="criar-btn">
+                    <div class="criar-btn">
                         <input type="hidden" name="criar_btn" value="">
-                        <button type="submit" class="btn-criar">
+                        <button class="btn-criar" onclick="pop_up_cadastrar()">
                             <i class='bx bx-plus icon'></i>
-                            <span>Criar</span>
+                            <span>Cadastrar</span>
                         </button>
-                    </form>
+                    </div>
 
                     <form action="" method="get" class="procurar-btn">
                         <input type="text" name="procurar_btn" id="procurar_btn" placeholder="Pesquisar...">
@@ -87,6 +87,8 @@
         </section>
         <!-- <div id="resultados"></div> -->
     {% endblock %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
     <script src="../../static/js/script.js"></script>
 </body>
 </html>

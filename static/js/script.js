@@ -10,6 +10,8 @@ const switchT = document.querySelector('.switch')
       deleteDiv = document.querySelector('.delete_div')
       deleteCard = document.querySelector('.delete_card')
       deleteTitulo = document.querySelector('.delete_titulo')
+      cadastrarDiv = document.querySelector('.cadastrar_div')
+      cadastrarCard = document.querySelector('.cadastrar_card')
 
 let modeStatus = localStorage.getItem('status')
 if (modeStatus === 'fechado'){
@@ -129,6 +131,32 @@ function pop_up_deletar_cancelar() {
     }, 1);
 }
 
+function pop_up_cadastrar(){
+    cadastrarDiv.style.display = "flex";
+    setTimeout(() => {
+        cadastrarDiv.style.opacity = 1;
+        setTimeout(() => {
+            cadastrarCard.style.opacity = 1;
+            cadastrarCard.style.transform = "translate(-50%, -50%) scale(1)";
+        }, 1);
+    }, 1);
+}
+
+function pop_up_cadastrar_cancelar(){
+    cadastrarCard.style.opacity = 0;
+    cadastrarCard.style.transform = "translate(-50%, -50%) scale(0)";
+    setTimeout(() => {
+        cadastrarDiv.style.opacity = 0;
+        setTimeout(() => {
+            cadastrarDiv.style.display = "none";
+        }, 300);
+    }, 1);
+}
+
+// JQUERY
+$('.cadastrar_input.calendario').mask("99/99/9999");
+$('.cadastrar_input.calendario').mouseover(function(){$(this).attr('placeholder','__/__/____')});
+$('.cadastrar_input.calendario').mouseout(function(){$(this).attr('placeholder','Data de chegada')});
 
 particlesJS("particles-js", {
     "particles":{
