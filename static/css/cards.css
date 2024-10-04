@@ -42,7 +42,6 @@
 
 .delete_card{
     opacity: 0;
-    transform-origin: center;
     width: 300px;
     background-color: var(--corSideBar);
     display: flex;
@@ -57,6 +56,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
+    transform-origin: center;
 }
 
 .delete_titulo{

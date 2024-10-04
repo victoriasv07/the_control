@@ -102,32 +102,38 @@ def register():
 #rota para filtrar salas a partir da navbar
 
 
-
 @bp_user.route("/filtrar", methods=["POST", "GET"])
 @login_required
 def visualizar_patrimonio():
     """
-    Essa rota é responsável por filtrar patrimônios por sala.
-
-    Se o parâmetro "sala" for fornecido, ele filtra os patrimônios por essa sala.
-    Caso contrário, ele retorna todos os patrimônios.
+    Rota para visualizar e deletar patrimônios por sala.
     """
-    sala = request.args.get("sala")
-    if sala is None:
-        ##Nenhum parâmetro de sala fornecido.
-        patrimonios = Patrimonios.query.all()
-    else:
+    sala = request.args.get("sala")  # Obtém o parâmetro `sala` da URL
+
+    if request.method == "POST":
+        # Identifica o ID do patrimônio a ser excluído via form submission
+        patrimonio_id = request.form.get("patrimonio_id")
+        if patrimonio_id:
+            # Executa a exclusão no banco de dados
+            patrimonio = Patrimonios.query.get(patrimonio_id)
+            if patrimonio:
+                db.session.delete(patrimonio)
+                db.session.commit()
+                flash(f"Patrimônio ID {patrimonio_id} excluído com sucesso!", "success")
+    
+    # Filtra os patrimônios pelo parâmetro `sala`
+    if sala:
         try:
-            # Tenta converter o parâmetro de sala para inteiro
             sala_inteiro = int(sala)  
-            # Filtra os patrimônios por sala
             patrimonios = Patrimonios.query.filter_by(local=sala_inteiro).all()
         except ValueError:
-            # Se o parâmetro de sala não for um inteiro, filtra por string
             patrimonios = Patrimonios.query.filter_by(local=sala).all()
+    else:
+        patrimonios = Patrimonios.query.all()
 
-    # Retorna os patrimônios filtrados
-    return render_template("./sistema/user/layout.html", patrimonios=patrimonios, sala = sala)
+    # Renderiza a mesma página com os patrimônios atualizados
+    return render_template("./sistema/user/layout.html", patrimonios=patrimonios, sala=sala)
+
 
 
 
@@ -147,6 +153,7 @@ def deletar_patrimonio():
     """
     message = ""
     patrimonio_id = request.form.get('patrimonio_id')
+    sala = request.form.get('sala')
     if not patrimonio_id:
         return 'ID do patrimônio não fornecido', 400
     
@@ -155,10 +162,9 @@ def deletar_patrimonio():
         db.session.delete(patrimonio)
         db.session.commit()
         ##Patrimônio deletado 
-        return redirect(url_for('user.visualizar_patrimonio'))
+        return redirect(url_for('user.visualizar_patrimonio', sala = sala))
     else:
-        flash('Patrimônio não encontrado', 'error')
-        return redirect(url_for('user.visualizar_patrimonio'))
+        return redirect(url_for('user.visualizar_patrimonio', sala = sala))
 
 
 

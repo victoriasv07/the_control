@@ -1,11 +1,16 @@
-<div class="delete_div">
-    <form action="" method="post" class="delete_card">
-        <p class="delete_titulo">Deseja excluir o item ...?</p>
+<div id="deleteDiv" class="delete_div" style="display: none; opacity: 0;">
+    <div id="deleteCard" class="delete_card" style="opacity: 0; transform: translate(-50%, -50%) scale(0);">
+        <p class="delete_titulo">Deseja excluir o item?</p>
         <i class='bx bx-trash icon'></i>
-        <p class="delete_texto">Essa ação é irreversível e não <br> poderá ser desfeita.</p>
-        <div class="delete_btns">
-            <a href="{{ url_for('user.deletar_patrimonio', id = patrimonio_id) }}"><button class="delete_confirmar">Confirmar</button></a>
-            <a href=""><button class="delete_cancelar" onclick="pop_up_deletar_cancelar()">Cancelar</button></a>
-        </div>
-    </form>
+        <p class="delete_texto">Essa ação é irreversível e não poderá ser desfeita.</p>
+        <form id="deleteForm" method="post" action="/filtrar{{ '?sala=' + sala if sala else '' }}">
+            <!-- Campo oculto para armazenar o ID do patrimônio -->
+            <input type="hidden" name="patrimonio_id" id="patrimonio_id_hidden">
+            <input type="hidden" name="sala" id="sala_hidden" value="{{ sala }}">
+            <div class="delete_btns">
+                <button type="submit" class="delete_confirmar">Confirmar</button>
+                <button type="button" class="delete_cancelar" onclick="pop_up_deletar_cancelar()">Cancelar</button>
+            </div>
+        </form>
+    </div>
 </div>

@@ -9,6 +9,7 @@ const switchT = document.querySelector('.switch')
       dropItens = document.querySelectorAll('#drop-itens')
       deleteDiv = document.querySelector('.delete_div')
       deleteCard = document.querySelector('.delete_card')
+      deleteTitulo = document.querySelector('.delete_titulo')
 
 let modeStatus = localStorage.getItem('status')
 if (modeStatus === 'fechado'){
@@ -102,27 +103,32 @@ function abrirDrop(ambiente){
     }
 }
 
-function pop_up_deletar(){
-    deleteDiv.style.display = "flex"
+function pop_up_deletar(patrimonio_id, sala) {
+    document.getElementById('patrimonio_id_hidden').value = patrimonio_id;
+    document.getElementById('sala_hidden').value = sala;
+    deleteTitulo.innerHTML = `Deseja excluir o item ${patrimonio_id}?`
+
+    deleteDiv.style.display = "flex";
     setTimeout(() => {
-        deleteDiv.style.opacity = 1
+        deleteDiv.style.opacity = 1;
         setTimeout(() => {
-            deleteCard.style.opacity = 1
-            deleteCard.style.transform = "translate(-50%, -50%) scale(1);"
-        }, 1)
-    }, 1)
+            deleteCard.style.opacity = 1;
+            deleteCard.style.transform = "translate(-50%, -50%) scale(1)";
+        }, 1);
+    }, 1);
 }
 
-function pop_up_deletar_cancelar(){
-    deleteCard.style.opacity = 0
-    deleteCard.style.transform = "translate(-50%, -50%) scale(0);"
+function pop_up_deletar_cancelar() {
+    deleteCard.style.opacity = 0;
+    deleteCard.style.transform = "translate(-50%, -50%) scale(0)";
     setTimeout(() => {
-        deleteDiv.style.opacity = 0
+        deleteDiv.style.opacity = 0;
         setTimeout(() => {
-            deleteDiv.style.display = "none"
-        }, 300)
-    }, 1)
+            deleteDiv.style.display = "none";
+        }, 300);
+    }, 1);
 }
+
 
 particlesJS("particles-js", {
     "particles":{
