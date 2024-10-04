@@ -13,7 +13,7 @@
 <body>
     {% include 'sistema/user/navbar.html' %}
     <!-- PARA TIRAR O CARD SÓ COMENTAR A LINHA DE BAIXO -->
-    {% include 'sistema/cards.html' %} 
+    {% include 'components/cards.html' %}
     {% block content %}
         <section class="home">
             <div class="home-conteudo">
@@ -66,7 +66,7 @@
                                     <td class="tabela-coluna btns">
                                         <form action="{{ url_for('user.deletar_patrimonio') }}" method="post" style="display:inline; width: 100%;">
                                             <input type="hidden" name="patrimonio_id" value="{{ patrimonio.id }}">
-                                            <button type="submit" class="btn-deletar">Deletar</button>
+                                            <button type="submit" class="btn-deletar" onclick="pop_up_deletar()">Deletar</button>
                                         </form>
                                         <form action="{{ url_for('user.atualizar_patrimonio') }}" method="post" style="display:inline; width: 100%;">
                                             <input type="hidden" name="patrimonio_id" value="{{ patrimonio.id }}">
