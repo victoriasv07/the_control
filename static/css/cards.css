@@ -1,0 +1,122 @@
+:root{
+    /* ==== CORES ==== */
+    --corBackBody: #e8ecf7;
+    --corSideBar: #fff;
+    --corFonte: #707070;
+    --corToggleInput: #ddd;
+    --corPrimaria: rgba(122, 0, 141, 1);
+    --corSucess: #00c875;
+    --corDelete: #ea4335;
+    --corDelete2: rgba(234, 67, 53, .2);
+    --corFonteBtn: #fff;
+    --corPreto01: rgba(0, 0, 0, 0.1);
+    --corPreto015: rgba(0, 0, 0, 0.15);
+    --corPreto05: rgba(0, 0, 0, 0.5);
+
+    /* ==== TRANSICOES ==== */
+    --tran-3: .3s ease;
+    --tran-4: .4s ease;
+    --tran-5: .5s ease;
+}
+
+:root.dark{
+    --corBackBody: #1f2020;
+    --corSideBar: #242526;
+    --corFonte: #ccc;
+    --corToggleInput: #ddd;
+    --corPreto01: rgba(255, 255, 255, 0.1);
+    --corPreto015: rgba(255, 255, 255, 0.15);
+    --corPreto05: rgba(255, 255, 255, 0.4);
+}
+
+.delete_div{
+    position: absolute;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 100%;
+    height: 100dvh;
+    backdrop-filter: blur(1px);
+}
+
+.delete_card{
+    width: 300px;
+    background-color: var(--corSideBar);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    grid-area: 10px;
+    box-shadow: 0 0 8px var(--corPreto015);
+    border-radius: 16px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.delete_titulo{
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.bx-trash.icon{
+    min-width: unset;
+    color: var(--corDelete);
+    animation: animacao_icon 2s infinite;
+    font-size: 80px;
+    margin: 20px 0;
+}
+
+.delete_texto{
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.delete_btns{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.delete_confirmar{
+    border: none;
+    font-weight: 600;
+    font-size: 14px;
+    background-color: var(--corDelete);
+    color: var(--corFonteBtn);
+    border-radius: 20px;
+    padding: 5px 50px;
+}
+
+.delete_confirmar:hover{
+    filter: brightness(.85);
+    cursor: pointer;
+}
+
+.delete_cancelar{
+    border: none;
+    font-weight: 600;
+    font-size: 14px;
+    background-color: transparent;
+    color: var(--corDelete);
+    border-radius: 20px;
+    padding: 5px 50px;
+}
+
+.delete_cancelar:hover{
+    background-color: var(--corDelete2);
+    cursor: pointer;
+}
+
+@keyframes animacao_icon{
+    0%, 100% {
+        transform: translateY(-10%);
+        animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+      transform: translateY(0);
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+}

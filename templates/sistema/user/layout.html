@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../static/css/main.css">
     <link rel="stylesheet" href="../../static/css/patrimonio.css">
+    <link rel="stylesheet" href="../../static/css/cards.css">
     <link rel="icon" href="../../static/img/iconefp.png">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>The Control</title>
 </head>
 <body>
     {% include 'sistema/user/navbar.html' %}
+    <!-- PARA TIRAR O CARD SÓ COMENTAR A LINHA DE BAIXO -->
+    {% include 'sistema/cards.html' %} 
     {% block content %}
         <section class="home">
             <div class="home-conteudo">

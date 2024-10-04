@@ -10,6 +10,7 @@
     --corFonteBtn: #fff;
     --corPreto01: rgba(0, 0, 0, 0.1);
     --corPreto015: rgba(0, 0, 0, 0.15);
+    --corPreto05: rgba(0, 0, 0, 0.5);
     --corPreto08: rgba(0, 0, 0, 0.8);
     --corPreto085: rgba(0, 0, 0, 0.85);
 
@@ -26,6 +27,7 @@
     --corToggleInput: #ddd;
     --corPreto01: rgba(255, 255, 255, 0.1);
     --corPreto015: rgba(255, 255, 255, 0.15);
+    --corPreto05: rgba(255, 255, 255, 0.4);
     --corPreto08: rgba(255, 255, 255, 0.8);
     --corPreto085: rgba(255, 255, 255, 0.85);
 }
@@ -77,7 +79,7 @@
 
 .criar-btn button:hover, .exportar-btn button:hover{
     cursor: pointer;
-    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5)
+    box-shadow: 0px 0px 8px var(--corPreto05);
 }
 
 .criar-btn button:active, .exportar-btn button:active{

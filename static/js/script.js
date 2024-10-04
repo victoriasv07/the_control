@@ -1,8 +1,8 @@
-const switchT = document.querySelector('.switch'),
+const switchT = document.querySelector('.switch')
       switchToggle = document.querySelector('.toggle-switch'),
-      root = document.querySelector(':root'),
-      menuBtn = document.querySelector('.bx-chevron-left'),
-      sideBar = document.querySelector('.side-bar'),
+      root = document.querySelector(':root')
+      menuBtn = document.querySelector('.bx-chevron-left')
+      sideBar = document.querySelector('.side-bar')
       home = document.querySelector('.home')
       textos = document.querySelectorAll('.opacity')
       setasDrop = document.querySelectorAll('.bx-chevron-up')
