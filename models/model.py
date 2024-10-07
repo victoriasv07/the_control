@@ -25,6 +25,11 @@ class Patrimonios(db.Model):
     denominacao_de_imobiliario = db.Column(db.String(100), nullable=False)
     data_de_chegada = db.Column(db.String(100), nullable=False)
     local = db.Column(db.String(100), nullable=False)
+    def __init__(self, numero_de_etiqueta, denominacao_de_imobiliario, data_de_chegada, local):
+        self.numero_de_etiqueta = numero_de_etiqueta
+        self.denominacao_de_imobiliario = denominacao_de_imobiliario
+        self.data_de_chegada = data_de_chegada
+        self.local = local
 
 class Cadastro(db.Model):
     __tablename__ = "cadastro_usuario"

@@ -16,15 +16,11 @@
 </div>
 
 <div class="cadastrar_div">
-    <form method="post" class="cadastrar_card">
+    <form method="post" action="{{ url_for('user.criar_patrimonio') }}" class="cadastrar_card">
         <p class="cadastrar_titulo">Cadastrar novo patrimônio</p>
         <i class='bx bxs-add-to-queue icon'></i>
         <p class="cadastrar_texto">Preencha os campos abaixo para cadastrar um novo patrimônio.</p>
-
-        <div class="cadastrar_input_group">
-            <input type="number" class="cadastrar_input" name="cadastrar_id" placeholder="Id do patrimônio" required>
-            <i class='bx bx-barcode icon cadastrar'></i>
-        </div>
+        
         <div class="cadastrar_input_group">
             <input type="number" class="cadastrar_input" name="cadastrar_numero_de_etiqueta" placeholder="Número de etiqueta" required>
             <i class='bx bx-purchase-tag-alt icon cadastrar'></i>
@@ -40,7 +36,11 @@
         <div class="cadastrar_input_group">
             <!-- <input type="" class="cadastrar_input" name="cadastrar_local" required> -->
             <select name="cadastrar_local" class="cadastrar_input select" id="cadastrar_input" required>
-                <option value="" disabled selected>Local</option>
+            {% for lugar in salas %}
+                {% if lugar %}
+                    <option value="{{ lugar }}">{{ lugar | replace("'", "") | replace("(", "") | replace(")", "") | replace(";", "") | replace(",", "") }}</option>
+                {% endif %}
+            {% endfor %}
                 <option value="BIBLIOTECA">BIBLIOTECA</option>
             </select>
             <i class='bx bx-current-location icon cadastrar'></i>
@@ -52,3 +52,20 @@
         </div>
     </form>
 </div>
+
+<!-- <script>
+    const salas = [
+    { id: 1, nome: 'MAKER' },
+    { id: 2, nome: 'Sala B' },
+    { id: 3, nome: 'Sala C' },
+    { id: 4, nome: 'Sala D' }
+]
+
+const selectElement = document.getElementById("cadastrar_input")
+salas.forEach(sala =>{
+    const option = document.createElement('option');
+        option.value = sala.id; 
+        option.text = sala.nome; 
+        selectElement.appendChild(option); // Adiciona a opção ao <select>
+})
+</script> -->

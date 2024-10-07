@@ -3,6 +3,7 @@ from flask_login import login_required, logout_user, login_user, current_user
 from models.model import db, Patrimonios, Cadastro, Usuario, Admin
 from utils.pdf_generator import criar_pdf
 
+
 bp_user = Blueprint("user", __name__)
 
 
@@ -17,10 +18,6 @@ def home():
 @login_required
 def sistema():
     return render_template("./sistema/user/layout.html")
-
-
-
-
 
 @bp_user.route('/logout')
 def logout():
@@ -104,11 +101,14 @@ def register():
 
 @bp_user.route("/filtrar", methods=["POST", "GET"])
 @login_required
-def visualizar_patrimonio():
+def visualizar_patrimonio(): 
     """
     Rota para visualizar e deletar patrimônios por sala.
     """
-    sala = request.args.get("sala")  # Obtém o parâmetro `sala` da URL
+    sala = request.args.get("sala")
+    # Query para obter os locais distintos
+    distinct_locals = db.session.query(Patrimonios.local).distinct().all()
+    salas = [local[0] for local in distinct_locals]  # Extrair os valores em uma lista
 
     if request.method == "POST":
         # Identifica o ID do patrimônio a ser excluído via form submission
@@ -132,7 +132,7 @@ def visualizar_patrimonio():
         patrimonios = Patrimonios.query.all()
 
     # Renderiza a mesma página com os patrimônios atualizados
-    return render_template("./sistema/user/layout.html", patrimonios=patrimonios, sala=sala)
+    return render_template("./sistema/user/layout.html", patrimonios=patrimonios, sala=sala, salas=salas)
 
 
 
@@ -205,11 +205,21 @@ def atualizar_patrimonio():
         return redirect(url_for('user.visualizar_patrimonio'))
 
 
+
 @bp_user.route("/criar", methods =["POST"])
 @login_required
 def criar_patrimonio():
-    pass
-
+    if request.method =="POST":
+        numero_de_etiqueta = request.form.get("cadastrar_numero_de_etiqueta")
+        nome = request.form.get("cadastrar_nome")
+        data_de_chegada = request.form.get("cadastrar_data_de_chegada")
+        local = request.form.get("cadastrar_local")
+        
+        novo_patrimonio = Patrimonios(numero_de_etiqueta = numero_de_etiqueta, denominacao_de_imobiliario =nome, data_de_chegada = data_de_chegada, local = local)
+        db.session.add(novo_patrimonio)
+        db.session.commit()
+        return redirect(url_for("user.home"))
+    
 @bp_user.route("/exportar", methods=["GET", "POST"])
 @login_required
 def exportar():
