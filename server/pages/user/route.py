@@ -103,39 +103,48 @@ def register():
 @login_required
 def visualizar_patrimonio(): 
     """
-    Rota para visualizar e deletar patrimônios por sala.
+    Rota para visualizar e deletar patrimônios por sala ou realizar uma pesquisa com base em um termo fornecido.
     """
+    # Obtém o valor da query e o valor da sala a partir dos parâmetros GET
+    query = request.args.get("query")
     sala = request.args.get("sala")
-    # Query para obter os locais distintos
+
+    # Obter as salas distintas para popular o dropdown
     distinct_locals = db.session.query(Patrimonios.local).distinct().all()
     salas = [local[0] for local in distinct_locals]  # Extrair os valores em uma lista
 
+    # Realiza a exclusão do patrimônio se o método for POST
     if request.method == "POST":
-        # Identifica o ID do patrimônio a ser excluído via form submission
         patrimonio_id = request.form.get("patrimonio_id")
         if patrimonio_id:
-            # Executa a exclusão no banco de dados
             patrimonio = Patrimonios.query.get(patrimonio_id)
             if patrimonio:
                 db.session.delete(patrimonio)
                 db.session.commit()
                 flash(f"Patrimônio ID {patrimonio_id} excluído com sucesso!", "success")
     
-    # Filtra os patrimônios pelo parâmetro `sala`
+    # Inicia a consulta de patrimônio sem filtros
+    patrimonios = Patrimonios.query
+
+    # Filtra os patrimônios pelo parâmetro sala, se fornecido
     if sala:
         try:
-            sala_inteiro = int(sala)  
-            patrimonios = Patrimonios.query.filter_by(local=sala_inteiro).all()
+            sala_inteiro = int(sala)  # Tenta converter o valor para inteiro
+            patrimonios = patrimonios.filter_by(local=sala_inteiro)
         except ValueError:
-            patrimonios = Patrimonios.query.filter_by(local=sala).all()
-    else:
-        patrimonios = Patrimonios.query.all()
+            patrimonios = patrimonios.filter_by(local=sala)
 
-    # Renderiza a mesma página com os patrimônios atualizados
-    return render_template("./sistema/user/layout.html", patrimonios=patrimonios, sala=sala, salas=salas)
-
-
-
+    if query:
+        #filtra o banco a partir da query passada
+        patrimonios = patrimonios.filter(
+            (Patrimonios.denominacao_de_imobiliario.ilike(f'%{query}%')) |
+            (Patrimonios.numero_de_etiqueta.ilike(f'%{query}%')) |
+            (Patrimonios.local.ilike(f'%{query}%'))
+        )
+        
+    #exibe toda a pesquisa filtrada
+    patrimonios = patrimonios.all()
+    return render_template("./sistema/user/layout.html", patrimonios=patrimonios, sala=sala, salas=salas, query=query)
 
 # Rota de deletar patrimônio
 @bp_user.route("/deletar", methods=["POST"])

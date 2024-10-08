@@ -12,6 +12,9 @@ const switchT = document.querySelector('.switch')
       deleteTitulo = document.querySelector('.delete_titulo')
       cadastrarDiv = document.querySelector('.cadastrar_div')
       cadastrarCard = document.querySelector('.cadastrar_card')
+      editarDiv = document.querySelector('.editar_div')
+      editarCard = document.querySelector('.editar_card')
+      editarTitulo = document.querySelector('.editar_titulo')
 
 let modeStatus = localStorage.getItem('status')
 if (modeStatus === 'fechado'){
@@ -153,10 +156,35 @@ function pop_up_cadastrar_cancelar(){
     }, 1);
 }
 
+function pop_up_editar(patrimonio_id){
+    document.getElementById('patrimonio_id_hidden').value = patrimonio_id;
+    editarTitulo.innerHTML = `Editar patrimônio ${patrimonio_id}`
+
+    editarDiv.style.display = "flex";
+    setTimeout(() => {
+        editarDiv.style.opacity = 1;
+        setTimeout(() => {
+            editarCard.style.opacity = 1;
+            editarCard.style.transform = "translate(-50%, -50%) scale(1)";
+        }, 1);
+    }, 1);
+}
+
+function pop_up_editar_cancelar(){
+    editarCard.style.opacity = 0;
+    editarCard.style.transform = "translate(-50%, -50%) scale(0)";
+    setTimeout(() => {
+        editarDiv.style.opacity = 0;
+        setTimeout(() => {
+            editarDiv.style.display = "none";
+        }, 300);
+    }, 1);
+}
+
 // JQUERY
-$('.cadastrar_input.calendario').mask("99/99/9999");
-$('.cadastrar_input.calendario').mouseover(function(){$(this).attr('placeholder','__/__/____')});
-$('.cadastrar_input.calendario').mouseout(function(){$(this).attr('placeholder','Data de chegada')});
+$('.calendario').mask("99/99/9999");
+$('.calendario').mouseover(function(){$(this).attr('placeholder','__/__/____')});
+$('.calendario').mouseout(function(){$(this).attr('placeholder','Data de chegada')});
 
 particlesJS("particles-js", {
     "particles":{

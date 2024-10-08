@@ -1,4 +1,4 @@
-<div id="deleteDiv" class="delete_div">
+<div id="deleteDiv" class="delete_div" style="display: none;">
     <div id="deleteCard" class="delete_card" style="opacity: 0; transform: translate(-50%, -50%) scale(0);">
         <p class="delete_titulo">Deseja excluir o item?</p>
         <i class='bx bx-trash icon'></i>
@@ -15,11 +15,13 @@
     </div>
 </div>
 
-<div class="cadastrar_div">
+<div class="cadastrar_div" style="display: none;">
     <form method="post" action="{{ url_for('user.criar_patrimonio') }}" class="cadastrar_card">
         <p class="cadastrar_titulo">Cadastrar novo patrimônio</p>
-        <i class='bx bxs-add-to-queue icon'></i>
-        <p class="cadastrar_texto">Preencha os campos abaixo para cadastrar um novo patrimônio.</p>
+        <a href="" class="cadastrar_btn">
+            <i class='bx bx-barcode-reader icon'></i>
+        </a>
+        <p class="cadastrar_texto">Preencha os campos abaixo para cadastrar um novo patrimônio ou use o ícone acima para escanear um código de barras.</p>
         
         <div class="cadastrar_input_group">
             <input type="number" class="cadastrar_input" name="cadastrar_numero_de_etiqueta" placeholder="Número de etiqueta" required>
@@ -36,12 +38,12 @@
         <div class="cadastrar_input_group">
             <!-- <input type="" class="cadastrar_input" name="cadastrar_local" required> -->
             <select name="cadastrar_local" class="cadastrar_input select" id="cadastrar_input" required>
+                <option value="" disabled selected>Local</option>
             {% for lugar in salas %}
                 {% if lugar %}
                     <option value="{{ lugar }}">{{ lugar | replace("'", "") | replace("(", "") | replace(")", "") | replace(";", "") | replace(",", "") }}</option>
                 {% endif %}
             {% endfor %}
-                <option value="BIBLIOTECA">BIBLIOTECA</option>
             </select>
             <i class='bx bx-current-location icon cadastrar'></i>
         </div>
@@ -53,19 +55,41 @@
     </form>
 </div>
 
-<!-- <script>
-    const salas = [
-    { id: 1, nome: 'MAKER' },
-    { id: 2, nome: 'Sala B' },
-    { id: 3, nome: 'Sala C' },
-    { id: 4, nome: 'Sala D' }
-]
+<div class="editar_div">
+    <form method="post" action="" class="editar_card">
+        <input type="hidden" name="patrimonio_id" id="patrimonio_id_hidden">
+        <p class="editar_titulo">Editar patrimônio</p>
+        <i class='bx bx-edit icon'></i>
+        <p class="editar_texto">Atualize os campos abaixo para editar o patrimônio.</p>
+        
+        <div class="editar_input_group">
+            <input type="number" class="editar_input" name="cadastrar_numero_de_etiqueta" placeholder="Número de etiqueta" required>
+            <i class='bx bx-purchase-tag-alt icon editar'></i>
+        </div>
+        <div class="editar_input_group">
+            <input type="text" class="editar_input" name="cadastrar_nome" placeholder="Nome do patrimônio" required>
+            <i class='bx bx-pencil icon editar'></i>
+        </div>
+        <div class="editar_input_group">
+            <input type="text" class="editar_input calendario" name="cadastrar_data_de_chegada" placeholder="Data de chegada" required>
+            <i class='bx bx-calendar icon editar'></i>
+        </div>
+        <div class="editar_input_group">
+            <!-- <input type="" class="editar_input" name="cadastrar_local" required> -->
+            <select name="cadastrar_local" class="editar_input select" id="editar_input" required>
+                <option value="" disabled selected>Local</option>
+            {% for lugar in salas %}
+                {% if lugar %}
+                    <option value="{{ lugar }}">{{ lugar | replace("'", "") | replace("(", "") | replace(")", "") | replace(";", "") | replace(",", "") }}</option>
+                {% endif %}
+            {% endfor %}
+            </select>
+            <i class='bx bx-current-location icon editar'></i>
+        </div>
 
-const selectElement = document.getElementById("cadastrar_input")
-salas.forEach(sala =>{
-    const option = document.createElement('option');
-        option.value = sala.id; 
-        option.text = sala.nome; 
-        selectElement.appendChild(option); // Adiciona a opção ao <select>
-})
-</script> -->
+        <div class="editar_btns">
+            <button type="submit" class="editar_confirmar">Editar</button>
+            <button type="button" class="editar_cancelar" onclick="pop_up_editar_cancelar()">Cancelar</button>
+        </div>
+    </form>
+</div>

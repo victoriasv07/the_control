@@ -7,6 +7,8 @@
     --corPrimaria: rgba(122, 0, 141, 1);
     --corSucess: #00c875;
     --corSucess2: rgba(0, 200, 117, .2);
+    --corEdit: rgba(255, 183, 74, 1);
+    --corEdit2: rgba(255, 183, 74, .2);
     --corDelete: #ea4335;
     --corDelete2: rgba(234, 67, 53, .2);
     --corFonteBtn: #fff;
@@ -30,7 +32,7 @@
     --corPreto05: rgba(255, 255, 255, 0.4);
 }
 
-.delete_div, .cadastrar_div{
+.delete_div, .cadastrar_div, .editar_div{
     display: none;
     opacity: 0;
     position: absolute;
@@ -41,7 +43,7 @@
     backdrop-filter: blur(1px);
 }
 
-.delete_card, .cadastrar_card{
+.delete_card, .cadastrar_card, .editar_card{
     opacity: 0;
     width: 300px;
     background-color: var(--corSideBar);
@@ -59,16 +61,16 @@
     transform-origin: center;
 }
 
-.cadastrar_card{
+.cadastrar_card, .editar_card{
     width: 500px !important;
 }
 
-.delete_titulo, .cadastrar_titulo{
+.delete_titulo, .cadastrar_titulo, .editar_titulo{
     font-size: 20px;
     font-weight: 800;
 }
 
-.bx-trash.icon, .bxs-add-to-queue.icon{
+.bx-trash.icon, .bx-barcode-reader.icon, .bx-edit.icon{
     min-width: unset;
     color: var(--corDelete);
     animation: animacao_icon 3s infinite;
@@ -76,23 +78,41 @@
     margin: 20px 0;
 }
 
-.bxs-add-to-queue.icon{
+.bx-barcode-reader.icon{
     color: var(--corSucess) !important;
 }
 
-.delete_texto, .cadastrar_texto{
+.cadastrar_btn{
+    border: none;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+.cadastrar_btn:hover{
+    cursor: pointer;
+}
+
+.cadastrar_btn:active{
+    scale: .9;
+}
+
+.bx-edit.icon{
+    color: var(--corEdit) !important;
+}
+
+.delete_texto, .cadastrar_texto, .editar_texto{
     font-size: 16px;
     margin-bottom: 20px;
 }
 
-.delete_btns, .cadastrar_btns{
+.delete_btns, .cadastrar_btns, .editar_btns{
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
 }
 
-.delete_confirmar, .cadastrar_confirmar{
+.delete_confirmar, .cadastrar_confirmar, .editar_confirmar{
     border: none;
     font-weight: 600;
     font-size: 14px;
@@ -107,12 +127,17 @@
     padding: 5px 100px !important;
 }
 
-.delete_confirmar:hover, .cadastrar_confirmar:hover{
+.editar_confirmar{
+    background-color: var(--corEdit) !important;
+    padding: 5px 100px !important;
+}
+
+.delete_confirmar:hover, .cadastrar_confirmar:hover, .editar_confirmar:hover{
     filter: brightness(.85);
     cursor: pointer;
 }
 
-.delete_cancelar, .cadastrar_cancelar{
+.delete_cancelar, .cadastrar_cancelar, .editar_cancelar{
     border: none;
     font-weight: 600;
     font-size: 14px;
@@ -127,8 +152,18 @@
     padding: 5px 100px !important;
 }
 
+.editar_cancelar{
+    color: var(--corEdit) !important;
+    padding: 5px 100px !important;
+}
+
 .delete_cancelar:hover{
     background-color: var(--corDelete2);
+    cursor: pointer;
+}
+
+.editar_cancelar:hover{
+    background-color: var(--corEdit2);
     cursor: pointer;
 }
 
@@ -142,7 +177,7 @@
     align-items: center;
 }
 
-.cadastrar_input_group{
+.cadastrar_input_group, .editar_input_group{
     display: flex;
     align-items: center;
     width: 80%;
@@ -151,7 +186,7 @@
     margin-bottom: 25px;
 }
 
-.cadastrar_input_group i{
+.cadastrar_input_group i, .editar_input_group i{
     min-width: unset;
     position: absolute;
     left: 10%;
@@ -159,7 +194,7 @@
     margin-bottom: 3px;
 }
 
-.cadastrar_input{
+.cadastrar_input, .editar_input{
     width: 100%;
     height: 36px;
     background-color: transparent;
@@ -174,18 +209,27 @@
     padding-left: 44px;
 }
 
+.editar_input:focus{
+    border-bottom: 3px solid var(--corEdit);
+    padding-left: 44px;
+}
+
 .cadastrar_input:focus + .icon.cadastrar{
     color: var(--corSucess) !important;
 }
 
-.cadastrar_input[type=number]::-webkit-inner-spin-button{
+.editar_input:focus + .icon.editar{
+    color: var(--corEdit) !important;
+}
+
+.cadastrar_input[type=number]::-webkit-inner-spin-button, .editar_input[type=number]::-webkit-inner-spin-button{
     display: none;
 }
 
 .select{
-    appearance: none; /* Remove a aparência padrão (seta), mas pode variar entre navegadores */
-    -webkit-appearance: none; /* Safari */
-    -moz-appearance: none; /* Firefox */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
 .select:hover{

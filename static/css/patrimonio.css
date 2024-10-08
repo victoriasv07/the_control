@@ -6,7 +6,10 @@
     --corToggleInput: #ddd;
     --corPrimaria: rgba(122, 0, 141, 1);
     --corSucess: #00c875;
+    --corExcel: rgba(2, 114, 59, 1);
     --corDelete: #ea4335;
+    --corEdit: rgba(255, 183, 74, 1);
+    --corEdit2: rgba(255, 183, 74, .2);
     --corFonteBtn: #fff;
     --corPreto01: rgba(0, 0, 0, 0.1);
     --corPreto015: rgba(0, 0, 0, 0.15);
@@ -86,6 +89,17 @@
     transform: translateY(3px);
 }
 
+.btn-criar.csv{
+    background-color: var(--corExcel) !important;
+}
+
+.btns-patrimonios{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+}
+
 .procurar-btn{
     display: flex;
     align-items: center;
@@ -158,7 +172,7 @@
     background-color: transparent;
 }
 
-.btn-deletar, .btn-atualizar{
+.btn-deletar, .btn-editar{
     border: none;
     color: var(--corFonteBtn);
     padding: 8px 15px;
@@ -173,12 +187,12 @@
     cursor: pointer;
 }
 
-.btn-atualizar:hover{
+.btn-editar:hover{
     filter: brightness(1.2);
     cursor: pointer;
 }
 
-.btn-deletar:active, .btn-atualizar:active{
+.btn-deletar:active, .btn-editar:active{
     transform: scale(0.95);
 }
 
@@ -186,6 +200,6 @@
     background-color: var(--corDelete);
 }
 
-.btn-atualizar{
-    background-color: var(--corSucess);
+.btn-editar{
+    background-color: var(--corEdit);
 }
