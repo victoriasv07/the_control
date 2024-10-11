@@ -35,14 +35,14 @@
                     </form>
 
                     <div class="btns-patrimonios">
-                        <form action="" method="post" class="exportar-btn">
+                        <form action="{{ url_for('user.exportar_csv', sala=sala) }}" method="post" class="exportar-btn">
                             <input type="hidden" name="exportarCSV_btn" value="">
                             <button type="submit" class="btn-criar csv">
                                 <i class='bx bxs-file-blank icon'></i>
                                 <span>Exportar CSV</span>
                             </button>
                         </form>
-                        <form action="{{ url_for('user.exportar', sala=sala) }}" method="post" class="exportar-btn">
+                        <form action="{{ url_for('user.exportar_pdf', sala=sala) }}" method="post" class="exportar-btn">
                             <input type="hidden" name="exportar_btn" value="">
                             <button type="submit" class="btn-criar">
                                 <i class='bx bxs-file-pdf icon'></i>

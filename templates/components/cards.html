@@ -56,27 +56,27 @@
 </div>
 
 <div class="editar_div">
-    <form method="post" action="" class="editar_card">
-        <input type="hidden" name="patrimonio_id" id="patrimonio_id_hidden">
+    <form method="post" action="{{ url_for('user.atualizar_patrimonio') }}" class="editar_card">
+        <input type="hidden" name="editar_patrimonio_id" id="patrimonio_id_hidden">
         <p class="editar_titulo">Editar patrimônio</p>
         <i class='bx bx-edit icon'></i>
         <p class="editar_texto">Atualize os campos abaixo para editar o patrimônio.</p>
         
         <div class="editar_input_group">
-            <input type="number" class="editar_input" name="cadastrar_numero_de_etiqueta" placeholder="Número de etiqueta" required>
+            <input type="number" class="editar_input" name="editar_numero_de_etiqueta" placeholder="Número de etiqueta" required>
             <i class='bx bx-purchase-tag-alt icon editar'></i>
         </div>
         <div class="editar_input_group">
-            <input type="text" class="editar_input" name="cadastrar_nome" placeholder="Nome do patrimônio" required>
+            <input type="text" class="editar_input" name="editar_nome" placeholder="Nome do patrimônio" required>
             <i class='bx bx-pencil icon editar'></i>
         </div>
         <div class="editar_input_group">
-            <input type="text" class="editar_input calendario" name="cadastrar_data_de_chegada" placeholder="Data de chegada" required>
+            <input type="text" class="editar_input calendario" name="editar_data_de_chegada" placeholder="Data de chegada" required>
             <i class='bx bx-calendar icon editar'></i>
         </div>
         <div class="editar_input_group">
             <!-- <input type="" class="editar_input" name="cadastrar_local" required> -->
-            <select name="cadastrar_local" class="editar_input select" id="editar_input" required>
+            <select name="editar_local" class="editar_input select" id="editar_input" required>
                 <option value="" disabled selected>Local</option>
             {% for lugar in salas %}
                 {% if lugar %}

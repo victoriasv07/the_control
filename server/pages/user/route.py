@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request, render_template, redirect, url_fo
 from flask_login import login_required, logout_user, login_user, current_user
 from models.model import db, Patrimonios, Cadastro, Usuario, Admin
 from utils.pdf_generator import criar_pdf
+from utils.csv_generator import criar_csv
 
 
 bp_user = Blueprint("user", __name__)
@@ -184,34 +185,33 @@ def atualizar_patrimonio():
     """
     Essa rota atualiza um patrimônio no banco de dados.
 
-    Ela recebe o ID do patrimônio a ser atualizado e o
-    novo valor para o campo "denominacao_de_imobiliario"
-    como parâmetros na requisição. Se os parâmetros forem
+    Ela recebe os dados do patrimônio a ser atualizado como
+    parâmetros na requisição. Se os parâmetros forem
     fornecidos, ele atualiza o patrimônio no banco de dados
-    e retorna a página de patrimônios.
+    e retorna para a página de visualização de patrimônios.
 
-    Se os parâmetros não forem fornecidos, ele retorna um
-    erro 400. Se o patrimônio não for encontrado, ele retorna
-    um erro 404.
+    Se o patrimônio não for encontrado, ele retorna um erro.
     """
-    patrimonio_id = request.form.get('patrimonio_id')
-    novo_valor = request.form.get('novo_valor')
+    patrimonio_id = request.form.get('editar_patrimonio_id')
+    numero_de_etiqueta = request.form.get('editar_numero_de_etiqueta')
+    nome = request.form.get('editar_nome')
+    data_de_chegada = request.form.get('editar_data_de_chegada')
+    local = request.form.get('editar_local')
 
-    if not patrimonio_id or not novo_valor:
-        # Dados insuficientes para atualização
-        flash('Dados insuficientes para atualização', 'error')
+    if not patrimonio_id:
         return redirect(url_for('user.visualizar_patrimonio'))
 
     patrimonio = Patrimonios.query.get(patrimonio_id)
     if patrimonio:
         # Atualiza o patrimônio
-        patrimonio.denominacao_de_imobiliario = novo_valor
+        patrimonio.numero_de_etiqueta = numero_de_etiqueta
+        patrimonio.denominacao_de_imobiliario = nome
+        patrimonio.data_de_chegada = data_de_chegada
+        patrimonio.local = local
         db.session.commit()
-        # Patrimônio atualizado 
-        return redirect(url_for('user.visualizar_patrimonio'))
     else:
-        # Patrimônio não encontrado
         return redirect(url_for('user.visualizar_patrimonio'))
+    return redirect(url_for('user.visualizar_patrimonio'))
 
 
 
@@ -229,9 +229,9 @@ def criar_patrimonio():
         db.session.commit()
         return redirect(url_for("user.home"))
     
-@bp_user.route("/exportar", methods=["GET", "POST"])
+@bp_user.route("/exportar/pdf", methods=["GET", "POST"])
 @login_required
-def exportar():
+def exportar_pdf():
     """
     Essa rota exporta a tabela de patrimônios para um arquivo PDF.
 
@@ -245,6 +245,14 @@ def exportar():
     pdf_filename = criar_pdf(args)
     # Retorna o arquivo PDF para download
     return send_file(pdf_filename, as_attachment=True)
+
+
+@bp_user.route("/exportar/csv", methods=["GET", "POST"])
+@login_required
+def exportar_csv():
+    args = request.args.get("sala")
+    csv_filename = criar_csv(args)
+    return send_file(csv_filename, as_attachment=True)
 
 
 #teste de funcionalidade de camera
