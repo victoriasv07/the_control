@@ -257,5 +257,18 @@ def exportar_csv():
 
 #teste de funcionalidade de camera
 @bp_user.route("/camera")
+@login_required
 def mostrar_camera():
     return render_template("./sistema/camera.html")
+
+@bp_user.route("/lerbarcode", methods=["POST"])
+@login_required
+def ler_barcode():
+    #terminar de desenvolver funcionalidade de aidção de patrimônio a partir da camêra
+    data = request.get_json()
+    if not data or 'codigo' not in data:
+        return jsonify({"erro": "Código de barras não encontrado"}), 400
+
+    codigo_barras = data['codigo']
+    print(f"Código de barras recebido: {codigo_barras}")
+    return jsonify({"mensagem": "Código de barras processado com sucesso", "codigo": codigo_barras}), 200

@@ -1,47 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> Ler Barcode </title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leitura de Código de Barras</title>
 </head>
-
 <body>
+  <h1>Leitura de Código de Barras com a Câmera</h1>
+  <div id="interactive" class="viewport"></div>
 
-    <div id="resultado"></div>
-    <div id="camera"></div>
+  <script src="https://unpkg.com/quagga/dist/quagga.min.js"></script>
+  <script>
+    // Função para detectar se o dispositivo é um celular
+    function isMobile() {
+      return /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
 
-    <script src="/utils/quagga.min.js"></script>
+    // Configuração da câmera, invertendo se o dispositivo for móvel
+    function getCameraConfig() {
+      return {
+        name: "Live",
+        type: "LiveStream",
+        target: document.querySelector('#interactive'),
+        constraints: {
+          width: 640,
+          height: 480,
+          facingMode: isMobile() ? "environment" : "user" // Traseira no celular, frontal no desktop
+        }
+      };
+    }
 
-    <script>
+    // Inicializa o QuaggaJS com a configuração da câmera
+    Quagga.init({
+      inputStream: getCameraConfig(),
+      decoder: {
+        readers: ["code_128_reader", "ean_reader", "ean_8_reader", "upc_reader", "upc_e_reader"] // Tipos de códigos de barras suportados
+      }
+    }, function(err) {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      console.log("QuaggaJS iniciado com sucesso");
+      Quagga.start();
+    });
 
-        Quagga.init({
-            inputStream: {
-                name: "Live",
-                type: "LiveStream",
-                target: document.querySelector('#camera')    // Or '#yourElement' (optional)
-            },
-            decoder: {
-                readers: ["code_128_reader"]
-            }
-        }, function (err) {
-            if (err) {
-                console.log(err);
-                return
-            }
-            console.log("Initialization finished. Ready to start");
-            Quagga.start();
-        });
+    // Função chamada ao detectar um código de barras
+    Quagga.onDetected(function(result) {
+      const code = result.codeResult.code;
+      console.log("Código de Barras detectado: " + code);
+      alert("Código de Barras detectado: " + code);
 
-        Quagga.onDetected(function (data) {
-            console.log(data.codeResult.code);
-            document.querySelector('#resultado').innerText = data.codeResult.code;
-        });
-
-    </script>
-
+      // Enviando o código via POST para o endpoint /lerbarcode
+      fetch('/lerbarcode', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ codigo: code }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Resposta do servidor:', data);
+      })
+      .catch((error) => {
+        console.error('Erro ao enviar o código:', error);
+      });
+    });
+  </script>
 </body>
-
 </html>
