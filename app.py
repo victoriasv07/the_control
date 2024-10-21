@@ -16,7 +16,7 @@ def create_app():
     load_dotenv()
     app.secret_key = os.getenv("SECRET_KEY")
     app.config.from_object(Config)
-    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=10)
+    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=100)
     
     # Inicializar as extensões
     db.init_app(app)

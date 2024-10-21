@@ -70,7 +70,7 @@
     font-weight: 800;
 }
 
-.bx-trash.icon, .bx-barcode-reader.icon, .bx-edit.icon{
+.bx-trash.icon, .bxs-add-to-queue.icon, .bx-edit.icon{
     min-width: unset;
     color: var(--corDelete);
     animation: animacao_icon 3s infinite;
@@ -78,22 +78,8 @@
     margin: 20px 0;
 }
 
-.bx-barcode-reader.icon{
+.bxs-add-to-queue.icon{
     color: var(--corSucess) !important;
-}
-
-.cadastrar_btn{
-    border: none;
-    background-color: transparent;
-    text-decoration: none;
-}
-
-.cadastrar_btn:hover{
-    cursor: pointer;
-}
-
-.cadastrar_btn:active{
-    scale: .9;
 }
 
 .bx-edit.icon{
@@ -184,6 +170,10 @@
     padding: 0 10%;
     position: relative;
     margin-bottom: 25px;
+}
+
+.editar_input:disabled, .editar_input:disabled + i{
+    opacity: .6;
 }
 
 .cadastrar_input_group i, .editar_input_group i{

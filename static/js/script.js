@@ -164,7 +164,7 @@ function pop_up_editar(patrimonio_id, patrimonio_numero_de_etiqueta, patrimonio_
     document.getElementById('patrimonio_local_hidden').value = patrimonio_local;
     editarTitulo.innerHTML = `Editar patrimônio ${patrimonio_id}`
     try{
-        document.getElementById('patrimonio_id_hidden').value = patrimonio_id;
+        document.querySelector('input[name="editar_id"]').value = patrimonio_id;
         document.querySelector('input[name="editar_numero_de_etiqueta"]').value = patrimonio_numero_de_etiqueta;
         document.querySelector('input[name="editar_nome"]').value = patrimonio_denominacao_de_imobiliario;
         document.querySelector('input[name="editar_data_de_chegada"]').value = patrimonio_data_de_chegada;

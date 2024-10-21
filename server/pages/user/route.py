@@ -99,6 +99,98 @@ def register():
 
 #rota para filtrar salas a partir da navbar
 
+@bp_user.route("/criar", methods =["POST"])
+@login_required
+def criar_patrimonio():
+    if request.method =="POST":
+        numero_de_etiqueta = request.form.get("cadastrar_numero_de_etiqueta")
+        nome = request.form.get("cadastrar_nome")
+        data_de_chegada = request.form.get("cadastrar_data_de_chegada")
+        local = request.form.get("cadastrar_local")
+        
+        novo_patrimonio = Patrimonios(numero_de_etiqueta = numero_de_etiqueta, denominacao_de_imobiliario =nome, data_de_chegada = data_de_chegada, local = local)
+        db.session.add(novo_patrimonio)
+        db.session.commit()
+        return redirect(url_for("user.home"))
+
+# Rota de deletar patrimônio
+@bp_user.route("/deletar", methods=["POST"])
+@login_required
+def deletar_patrimonio():
+    """
+    Essa rota deleta um patrimônio do banco de dados.
+
+    Ela recebe o ID do patrimônio a ser deletado como um parâmetro
+    na requisição. Se o ID for fornecido, ele deleta o patrimônio
+    do banco de dados e retorna a página de patrimônios.
+
+    Se o ID não for fornecido, ele retorna um erro 400.
+    Se o patrimônio não for encontrado, ele retorna um erro 404.
+    """
+    message = ""
+    patrimonio_id = request.form.get('patrimonio_id')
+    sala = request.form.get('sala')
+    if not patrimonio_id:
+        return 'ID do patrimônio não fornecido', 400
+    
+    patrimonio = Patrimonios.query.get(patrimonio_id)
+    if patrimonio:
+        db.session.delete(patrimonio)
+        db.session.commit()
+        ##Patrimônio deletado 
+        return redirect(url_for('user.visualizar_patrimonio', sala = sala))
+    else:
+        return redirect(url_for('user.visualizar_patrimonio', sala = sala))
+
+
+
+# Rota para atualizar patrimônio
+@bp_user.route("/atualizar", methods=["POST"])
+@login_required
+def atualizar_patrimonio():
+    patrimonio_id = request.form.get('editar_id')
+    numero_de_etiqueta = request.form.get('editar_numero_de_etiqueta')
+    nome = request.form.get('editar_nome')
+    data_de_chegada = request.form.get('editar_data_de_chegada')
+    local = request.form.get('editar_local')
+
+    if not patrimonio_id:
+        print("Erro: ID do patrimônio não foi enviado.")
+        return redirect(url_for('user.visualizar_patrimonio'))
+
+    patrimonio = Patrimonios.query.get(patrimonio_id)
+    if patrimonio:
+        # Atualiza o patrimônio
+        patrimonio.numero_de_etiqueta = numero_de_etiqueta
+        patrimonio.denominacao_de_imobiliario = nome
+        patrimonio.data_de_chegada = data_de_chegada
+        patrimonio.local = local
+        db.session.commit()
+        print(f"Patrimônio {patrimonio_id} atualizado com sucesso.")
+    else:
+        print(f"Erro: Patrimônio com ID {patrimonio_id} não encontrado.")
+        return redirect(url_for('user.visualizar_patrimonio'))
+    
+    return redirect(url_for('user.visualizar_patrimonio'))
+
+    
+@bp_user.route("/exportar/pdf", methods=["GET", "POST"])
+@login_required
+def exportar_pdf():
+    """
+    Essa rota exporta a tabela de patrimônios para um arquivo PDF.
+
+    Ela recebe o parâmetro "sala" via GET e o usa para filtrar os patrimônios.
+    Se o parâmetro "sala" for fornecido, ele exporta os patrimônios dessa sala.
+    Caso contrário, ele retorna todos os patrimônios.
+
+    A rota chama a função criar_pdf() para gerar o arquivo PDF.
+    """
+    args = request.args.get("sala")
+    pdf_filename = criar_pdf(args)
+    # Retorna o arquivo PDF para download
+    return send_file(pdf_filename, as_attachment=True)
+
 
 @bp_user.route("/filtrar", methods=["POST", "GET"])
 @login_required
@@ -146,106 +238,6 @@ def visualizar_patrimonio():
     #exibe toda a pesquisa filtrada
     patrimonios = patrimonios.all()
     return render_template("./sistema/user/layout.html", patrimonios=patrimonios, sala=sala, salas=salas, query=query)
-
-# Rota de deletar patrimônio
-@bp_user.route("/deletar", methods=["POST"])
-@login_required
-def deletar_patrimonio():
-    """
-    Essa rota deleta um patrimônio do banco de dados.
-
-    Ela recebe o ID do patrimônio a ser deletado como um parâmetro
-    na requisição. Se o ID for fornecido, ele deleta o patrimônio
-    do banco de dados e retorna a página de patrimônios.
-
-    Se o ID não for fornecido, ele retorna um erro 400.
-    Se o patrimônio não for encontrado, ele retorna um erro 404.
-    """
-    message = ""
-    patrimonio_id = request.form.get('patrimonio_id')
-    sala = request.form.get('sala')
-    if not patrimonio_id:
-        return 'ID do patrimônio não fornecido', 400
-    
-    patrimonio = Patrimonios.query.get(patrimonio_id)
-    if patrimonio:
-        db.session.delete(patrimonio)
-        db.session.commit()
-        ##Patrimônio deletado 
-        return redirect(url_for('user.visualizar_patrimonio', sala = sala))
-    else:
-        return redirect(url_for('user.visualizar_patrimonio', sala = sala))
-
-
-
-# Rota para atualizar patrimônio
-@bp_user.route("/atualizar", methods=["POST"])
-@login_required
-def atualizar_patrimonio():
-    """
-    Essa rota atualiza um patrimônio no banco de dados.
-
-    Ela recebe os dados do patrimônio a ser atualizado como
-    parâmetros na requisição. Se os parâmetros forem
-    fornecidos, ele atualiza o patrimônio no banco de dados
-    e retorna para a página de visualização de patrimônios.
-
-    Se o patrimônio não for encontrado, ele retorna um erro.
-    """
-    patrimonio_id = request.form.get('editar_patrimonio_id')
-    numero_de_etiqueta = request.form.get('editar_numero_de_etiqueta')
-    nome = request.form.get('editar_nome')
-    data_de_chegada = request.form.get('editar_data_de_chegada')
-    local = request.form.get('editar_local')
-
-    if not patrimonio_id:
-        return redirect(url_for('user.visualizar_patrimonio'))
-
-    patrimonio = Patrimonios.query.get(patrimonio_id)
-    if patrimonio:
-        # Atualiza o patrimônio
-        patrimonio.numero_de_etiqueta = numero_de_etiqueta
-        patrimonio.denominacao_de_imobiliario = nome
-        patrimonio.data_de_chegada = data_de_chegada
-        patrimonio.local = local
-        db.session.commit()
-    else:
-        return redirect(url_for('user.visualizar_patrimonio'))
-    return redirect(url_for('user.visualizar_patrimonio'))
-
-
-
-@bp_user.route("/criar", methods =["POST"])
-@login_required
-def criar_patrimonio():
-    if request.method =="POST":
-        numero_de_etiqueta = request.form.get("cadastrar_numero_de_etiqueta")
-        nome = request.form.get("cadastrar_nome")
-        data_de_chegada = request.form.get("cadastrar_data_de_chegada")
-        local = request.form.get("cadastrar_local")
-        
-        novo_patrimonio = Patrimonios(numero_de_etiqueta = numero_de_etiqueta, denominacao_de_imobiliario =nome, data_de_chegada = data_de_chegada, local = local)
-        db.session.add(novo_patrimonio)
-        db.session.commit()
-        return redirect(url_for("user.home"))
-    
-@bp_user.route("/exportar/pdf", methods=["GET", "POST"])
-@login_required
-def exportar_pdf():
-    """
-    Essa rota exporta a tabela de patrimônios para um arquivo PDF.
-
-    Ela recebe o parâmetro "sala" via GET e o usa para filtrar os patrimônios.
-    Se o parâmetro "sala" for fornecido, ele exporta os patrimônios dessa sala.
-    Caso contrário, ele retorna todos os patrimônios.
-
-    A rota chama a função criar_pdf() para gerar o arquivo PDF.
-    """
-    args = request.args.get("sala")
-    pdf_filename = criar_pdf(args)
-    # Retorna o arquivo PDF para download
-    return send_file(pdf_filename, as_attachment=True)
-
 
 @bp_user.route("/exportar/csv", methods=["GET", "POST"])
 @login_required
