@@ -156,9 +156,25 @@ function pop_up_cadastrar_cancelar(){
     }, 1);
 }
 
-function pop_up_editar(patrimonio_id){
+function pop_up_editar(patrimonio_id, patrimonio_numero_de_etiqueta, patrimonio_denominacao_de_imobiliario, patrimonio_data_de_chegada, patrimonio_local){
     document.getElementById('patrimonio_id_hidden').value = patrimonio_id;
+    document.getElementById('patrimonio_numero_de_etiqueta_hidden').value = patrimonio_numero_de_etiqueta;
+    document.getElementById('patrimonio_denominacao_de_imobiliario_hidden').value = patrimonio_denominacao_de_imobiliario;
+    document.getElementById('patrimonio_data_de_chegada_hidden').value = patrimonio_data_de_chegada;
+    document.getElementById('patrimonio_local_hidden').value = patrimonio_local;
     editarTitulo.innerHTML = `Editar patrimônio ${patrimonio_id}`
+    try{
+        document.getElementById('patrimonio_id_hidden').value = patrimonio_id;
+        document.querySelector('input[name="editar_numero_de_etiqueta"]').value = patrimonio_numero_de_etiqueta;
+        document.querySelector('input[name="editar_nome"]').value = patrimonio_denominacao_de_imobiliario;
+        document.querySelector('input[name="editar_data_de_chegada"]').value = patrimonio_data_de_chegada;
+        document.querySelector('select[name="editar_local"]').value = patrimonio_local;
+    }
+    catch{
+        error => {
+            console.log('Erro ao buscar os dados do patrimônio:', error);
+        }
+    }
 
     editarDiv.style.display = "flex";
     setTimeout(() => {

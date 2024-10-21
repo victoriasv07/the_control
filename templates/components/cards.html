@@ -58,6 +58,10 @@
 <div class="editar_div">
     <form method="post" action="{{ url_for('user.atualizar_patrimonio') }}" class="editar_card">
         <input type="hidden" name="editar_patrimonio_id" id="patrimonio_id_hidden">
+        <input type="hidden" name="editar_patrimonio_numero_de_etiqueta" id="patrimonio_numero_de_etiqueta_hidden">
+        <input type="hidden" name="editar_patrimonio_denominacao_de_imobiliario" id="patrimonio_denominacao_de_imobiliario_hidden">
+        <input type="hidden" name="editar_patrimonio_data_de_chegada" id="patrimonio_data_de_chegada_hidden">
+        <input type="hidden" name="editar_patrimonio_local" id="patrimonio_local_hidden">
         <p class="editar_titulo">Editar patrimônio</p>
         <i class='bx bx-edit icon'></i>
         <p class="editar_texto">Atualize os campos abaixo para editar o patrimônio.</p>

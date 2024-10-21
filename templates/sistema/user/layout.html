@@ -74,11 +74,15 @@
                                         <a onclick="pop_up_deletar('{{ patrimonio.id }}')" style="display:inline; width: 100%;">
                                             <button class="btn-deletar">Deletar</button>
                                         </a>
-                                        
-                                        <a onclick="pop_up_editar('{{ patrimonio.id }}')" style="display:inline; width: 100%;">
+                                        <a onclick="pop_up_editar('{{ patrimonio.id }}', '{{ patrimonio.numero_de_etiqueta }}', '{{ patrimonio.denominacao_de_imobiliario }}', '{{ patrimonio.data_de_chegada }}', '{{ patrimonio.local }}')" style="display:inline; width: 100%;">
                                             <input type="hidden" name="patrimonio_id" value="{{ patrimonio.id }}">
+                                            <input type="hidden" name="patrimonio_numero_de_etiqueta" value="{{ patrimonio.numero_de_etiqueta }}">
+                                            <input type="hidden" name="patrimonio_denominacao_de_imobiliario" value="{{ patrimonio.denominacao_de_imobiliario }}">
+                                            <input type="hidden" name="patrimonio_data_de_chegada" value="{{ patrimonio.data_de_chegada }}">
+                                            <input type="hidden" name="patrimonio_local" value="{{ patrimonio.local }}">
                                             <button class="btn-editar">Editar</button>
                                         </a>
+                                        
                                     </td>
                                 </tr>
                                 {% endfor %}
