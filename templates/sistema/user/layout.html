@@ -32,6 +32,9 @@
                         <label for="procurar_btn">
                             <button type="submit"><i class='bx bx-search icon'></i></button>
                         </label>
+                        <label for="procurar_btn">
+                            <button type="submit"><i class='bx bx-barcode-reader icon bar'></i></button>
+                        </label>
                     </form>
 
                     <div class="btns-patrimonios">
@@ -101,5 +104,64 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
     <script src="../../static/js/script.js"></script>
+    <script src="https://unpkg.com/quagga/dist/quagga.min.js"></script>
+    <script>
+      // Função para detectar se o dispositivo é um celular
+      function isMobile() {
+        return /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      }
+
+      // Configuração da câmera, invertendo se o dispositivo for móvel
+      function getCameraConfig() {
+        return {
+          name: "Live",
+          type: "LiveStream",
+          target: document.querySelector('#interactive'),
+          constraints: {
+            width: 640,
+            height: 180,
+            facingMode: isMobile() ? "environment" : "user" // Traseira no celular, frontal no desktop
+          }
+        };
+      }
+
+      // Inicializa o QuaggaJS com a configuração da câmera
+      Quagga.init({
+        inputStream: getCameraConfig(),
+        decoder: {
+          readers: ["code_128_reader", "ean_reader", "ean_8_reader", "upc_reader", "upc_e_reader"] // Tipos de códigos de barras suportados
+        }
+      }, function(err) {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        console.log("QuaggaJS iniciado com sucesso");
+        Quagga.start();
+      });
+
+      // Função chamada ao detectar um código de barras
+      Quagga.onDetected(function(result) {
+        const code = result.codeResult.code;
+        console.log("Código de Barras detectado: " + code);
+        alert("Código de Barras detectado: " + code);
+
+        // Enviando o código via POST para o endpoint /lerbarcode
+        fetch('/lerbarcode', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ codigo: code }),
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Resposta do servidor:', data);
+        })
+        .catch((error) => {
+          console.error('Erro ao enviar o código:', error);
+        });
+        });
+    </script>
 </body>
 </html>

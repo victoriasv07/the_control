@@ -32,9 +32,9 @@
     --corPreto05: rgba(255, 255, 255, 0.4);
 }
 
-.delete_div, .cadastrar_div, .editar_div{
-    display: none;
-    opacity: 0;
+.delete_div, .cadastrar_div, .editar_div, .camera_div{
+    /* display: none;
+    opacity: 0; */
     position: absolute;
     z-index: 2;
     background-color: rgba(0, 0, 0, 0.2);
@@ -59,6 +59,21 @@
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
     transform-origin: center;
+}
+
+.camera_card{
+    width: 600px;
+    background-color: var(--corSideBar);
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-origin: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
 }
 
 .cadastrar_card, .editar_card{

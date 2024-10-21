@@ -203,3 +203,13 @@
 .btn-editar{
     background-color: var(--corEdit);
 }
+
+.icon.bar{
+    transform: translateX(calc(-200% - 18px));
+}
+
+.icon.bar:hover{
+    cursor: pointer;
+    color: var(--corPreto08);
+    padding-bottom: 3px;
+}
