@@ -7,6 +7,12 @@
     --corPrimaria: rgba(122, 0, 141, 1);
     --corSucess: #00c875;
     --corSucess2: rgba(0, 200, 117, .2);
+    --corSucessA: rgba(220, 252, 231, 1);
+    --corSucessA2: rgba(34, 197, 94, 1);
+    --corSucessA3: rgba(20, 83, 45, 1);
+    --corErrorA1: rgba(254, 226, 226, 1);
+    --corErrorA2: rgba(239, 68, 68, 1);
+    --corErrorA3: rgba(127, 29, 29, 1);
     --corEdit: rgba(255, 183, 74, 1);
     --corEdit2: rgba(255, 183, 74, .2);
     --corDelete: #ea4335;
@@ -33,8 +39,8 @@
 }
 
 .delete_div, .cadastrar_div, .editar_div, .camera_div{
-    /* display: none;
-    opacity: 0; */
+    display: none;
+    opacity: 0;
     position: absolute;
     z-index: 2;
     background-color: rgba(0, 0, 0, 0.2);
@@ -61,7 +67,7 @@
     transform-origin: center;
 }
 
-.camera_card{
+/* .camera_card{
     width: 600px;
     background-color: var(--corSideBar);
     padding: 40px 20px;
@@ -74,7 +80,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     overflow: hidden;
-}
+} */
 
 .cadastrar_card, .editar_card{
     width: 500px !important;
@@ -187,7 +193,7 @@
     margin-bottom: 25px;
 }
 
-.editar_input:disabled, .editar_input:disabled + i{
+.editar_input.id, .editar_input.id + i{
     opacity: .6;
 }
 
@@ -239,6 +245,49 @@
 
 .select:hover{
     cursor: pointer;
+}
+
+.alert_sucess_div, .alert_error_div{
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--corSucessA);
+    padding: 8px;
+    border-radius: 8px;
+    border-left: 4px solid var(--corSucessA2);
+    border-color: var(--corSucessA2);
+}
+
+.alert_error_div{
+    background-color: var(--corErrorA1) !important;
+    border-left: 4px solid var(--corErrorA2) !important;
+    border-color: var(--corErrorA2) !important;
+}
+
+.alert_sucess_div svg, .alert_error_div svg{
+    width: 20px;
+    height: 20px;
+    margin-right: 4px;
+}
+
+.alert_sucess_div svg path{
+    color: var(--corSucessA2) !important;
+}
+
+.alert_error_div svg path{
+    color: var(--corErrorA2) !important;
+}
+
+.alert_sucess_div p{
+    color: var(--corSucessA3);
+}
+
+.alert_error_div p{
+    color: var(--corErrorA3) !important;
 }
 
 @keyframes animacao_icon{

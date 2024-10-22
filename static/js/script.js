@@ -163,6 +163,11 @@ function pop_up_editar(patrimonio_id, patrimonio_numero_de_etiqueta, patrimonio_
     document.getElementById('patrimonio_data_de_chegada_hidden').value = patrimonio_data_de_chegada;
     document.getElementById('patrimonio_local_hidden').value = patrimonio_local;
     editarTitulo.innerHTML = `Editar patrimônio ${patrimonio_id}`
+    console.log(document.querySelector('input[name="editar_numero_de_etiqueta"]')); // Deve retornar o elemento ou null
+console.log(document.querySelector('input[name="editar_nome"]'));
+console.log(document.querySelector('input[name="editar_data_de_chegada"]'));
+console.log(document.querySelector('select[name="editar_local"]'));
+
     try{
         document.querySelector('input[name="editar_id"]').value = patrimonio_id;
         document.querySelector('input[name="editar_numero_de_etiqueta"]').value = patrimonio_numero_de_etiqueta;
@@ -170,10 +175,8 @@ function pop_up_editar(patrimonio_id, patrimonio_numero_de_etiqueta, patrimonio_
         document.querySelector('input[name="editar_data_de_chegada"]').value = patrimonio_data_de_chegada;
         document.querySelector('select[name="editar_local"]').value = patrimonio_local;
     }
-    catch{
-        error => {
-            console.log('Erro ao buscar os dados do patrimônio:', error);
-        }
+    catch (error) {
+        console.error('Erro ao buscar os dados do patrimônio:', error);
     }
 
     editarDiv.style.display = "flex";

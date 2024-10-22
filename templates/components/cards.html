@@ -1,4 +1,4 @@
-<div id="deleteDiv" class="delete_div" style="display: none;">
+<div id="deleteDiv" class="delete_div">
     <div id="deleteCard" class="delete_card" style="opacity: 0; transform: translate(-50%, -50%) scale(0);">
         <p class="delete_titulo">Deseja excluir o item?</p>
         <i class='bx bx-trash icon'></i>
@@ -15,14 +15,12 @@
     </div>
 </div>
 
-<div class="cadastrar_div" style="display: none;">
+<div class="cadastrar_div">
     <form method="post" action="{{ url_for('user.criar_patrimonio') }}" class="cadastrar_card">
         <p class="cadastrar_titulo">Cadastrar novo patrimônio</p>
-        <a href="" class="cadastrar_btn">
-            <i class='bx bx-barcode-reader icon'></i>
-        </a>
-        <p class="cadastrar_texto">Preencha os campos abaixo para cadastrar um novo patrimônio ou use o ícone acima para escanear um código de barras.</p>
-        
+        <i class='bx bxs-add-to-queue icon'></i>
+        <p class="cadastrar_texto">Preencha os campos abaixo para cadastrar um novo patrimônio.</p>
+           
         <div class="cadastrar_input_group">
             <input type="number" class="cadastrar_input" name="cadastrar_numero_de_etiqueta" placeholder="Número de etiqueta" required>
             <i class='bx bx-purchase-tag-alt icon cadastrar'></i>
@@ -55,7 +53,7 @@
     </form>
 </div>
 
-<div class="editar_div" style="display: none">
+<div class="editar_div">
     <form method="post" action="{{ url_for('user.atualizar_patrimonio') }}" class="editar_card">
         <input type="hidden" name="editar_patrimonio_id" id="patrimonio_id_hidden">
         <input type="hidden" name="editar_patrimonio_numero_de_etiqueta" id="patrimonio_numero_de_etiqueta_hidden">
@@ -66,6 +64,10 @@
         <i class='bx bx-edit icon'></i>
         <p class="editar_texto">Atualize os campos abaixo para editar o patrimônio.</p>
         
+        <div class="editar_input_group">
+            <input readonly type="number" class="editar_input id" name="editar_id" placeholder="Número de id" required>
+            <i class='bx bx-barcode icon editar'></i>
+        </div>
         <div class="editar_input_group">
             <input type="number" class="editar_input" name="editar_numero_de_etiqueta" placeholder="Número de etiqueta" required>
             <i class='bx bx-purchase-tag-alt icon editar'></i>
@@ -97,6 +99,40 @@
         </div>
     </form>
 </div>
+
+<div class="alert_sucess_div" style="display: none">
+    <svg
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M13 16h-1v-4h1m0-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        stroke-width="2"
+        stroke-linejoin="round"
+        stroke-linecap="round"
+      ></path>
+    </svg>
+    <p>Sucesso - {{ message }}</p>
+</div>
+
+<div class="alert_error_div" style="display: none">
+    <svg
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M13 16h-1v-4h1m0-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        stroke-width="2"
+        stroke-linejoin="round"
+        stroke-linecap="round"
+      ></path>
+    </svg>
+    <p>Erro - {{message}} </p>
+  </div>
 
 <!-- <div class="camera_div">
     <div class="camera_card">
