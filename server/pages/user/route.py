@@ -5,14 +5,47 @@ from utils.pdf_generator import criar_pdf
 from utils.csv_generator import criar_csv
 
 
-bp_user = Blueprint("user", __name__)
 
+bp_user = Blueprint("user", __name__)
 
 
 @bp_user.route("/home")
 @login_required
 def home():
-    return render_template("./sistema/user/home.html")
+    infos_usuarios = Cadastro.query.all()
+    print(f"Requisições de usuários encontradas: {infos_usuarios}")
+    
+    return render_template("./sistema/user/home.html", infos_usuarios=infos_usuarios)
+
+
+@bp_user.route("/autorizar_usuario/<int:id>", methods=["POST"])
+@login_required
+def autorizar_usuario(id):
+    # Verifica se o usuário logado é Admin
+    if current_user.__class__.__name__ != 'Admin':
+        return redirect(url_for('user.home'))  # Redireciona se não for admin
+    
+    usuario_a_autorizar = Cadastro.query.get(id)
+
+    if not usuario_a_autorizar:
+        print("Usuário não encontrado.")
+        return redirect(url_for('user.home'))
+    ##cria um novo registro na Tabela Usuario
+    novo_usuario = Usuario(
+        nome=usuario_a_autorizar.nome,
+        cpf=usuario_a_autorizar.cpf,
+        email=usuario_a_autorizar.email,
+        telefone=usuario_a_autorizar.telefone,
+        mensagem=usuario_a_autorizar.mensagem
+    )
+
+    db.session.add(novo_usuario)
+    db.session.delete(usuario_a_autorizar)
+    db.session.commit()
+
+    flash(f"Usuário {novo_usuario.nome} autorizado com sucesso!", "success")
+    return redirect(url_for('user.home'))
+
 
 ##rota base sistemas
 @bp_user.route("/sistema")
@@ -37,35 +70,32 @@ def logout():
 ##rota de login usuario
 @bp_user.route("/login", methods=["POST", "GET"])
 def login():
-    """
-    Essa rota é responsável pelo login do usuário no sistema.
-
-    Se o método for GET, retorna a página de login.
-    Se o método for POST, verifica se o CPF e o email estão corretos,
-    e se sim, loga o usuário no sistema.
-    """
     message = None
     if request.method == "POST":
         cpf = request.form.get("cpf")
         email = request.form.get("email")
-        # Verifica se o CPF e o email estão corretos
+        
+        # Primeiro tenta encontrar um usuário normal
         user = Usuario.query.filter_by(cpf=cpf, email=email).first()
-        admin = Admin.query.filter_by(cpf=cpf, email=email).first()
+
         if user:
-            # Se o usuário for encontrado, loga o usuário no sistema
             login_user(user)
+            print(f"Usuário logado: {user.nome}")
             return redirect(url_for("user.home"))
+
+        # Se não for usuário normal, tenta encontrar um admin
+        admin = Admin.query.filter_by(cpf=cpf, email=email).first()
+        
         if admin:
-            # Se o administrador for encontrado, loga o administrador no sistema
             login_user(admin)
-            return redirect(url_for("admin.admin_home"))
-        else:
-            # Se o usuário ou o administrador não forem encontrados, retorna uma mensagem de erro
-            message = "email, senha ou token inválidos"
-            return render_template("./sistema/login.html", message=message)
-    # Se o método for GET, retorna a página de login
+            print(f"Admin logado: {admin.id}")
+            return redirect(url_for("user.home"))
+
+        # Se não for encontrado nenhum, retorna mensagem de erro
+        message = "Email ou CPF inválido."
+        return render_template("./sistema/login.html", message=message)
+
     return render_template("./sistema/login.html", message=message)
-##rota de acesso do formulário para petição de acesso ao sistema
 
 
 @bp_user.route("/register", methods=["POST", "GET"])

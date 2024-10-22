@@ -24,35 +24,28 @@ def create_app():
     
     # Importação das blueprints 
     from server.pages.user import bp_user # Corrigido
-    from server.pages.admin import bp_admin
 
     # Registrar os blueprints
     app.register_blueprint(bp_user)
-    app.register_blueprint(bp_admin)
 
     # Define o loader do usuário
     from models.model import Usuario, Admin
     @login_manager.user_loader
     def load_user(user_id):
-        user = Usuario.query.get(int(user_id))
-        if user:
-            return user
+    # Verifica primeiro se o usuário logado é um Admin
         admin = Admin.query.get(int(user_id))
-        return admin
+        if admin:
+            return admin
+
+        # Se não for admin, tenta carregar um usuário comum
+        user = Usuario.query.get(int(user_id))
+        return user
+
+
 
     return app
 
 if __name__ == "__main__":
     print("Iniciando a aplicação...")
-
-    parser = argparse.ArgumentParser(description="Teste de criação de PDF")
-    parser.add_argument("--run-tests", action="store_true", help="Executa os testes antes de iniciar o servidor Flask")
-    args = parser.parse_args()
-
-    print(f"Argumentos fornecidos: {args}")  
-
-    if args.run_tests:
-        print("Função de teste executada com sucesso!")
-
     app = create_app()
     app.run(host='0.0.0.0', port=5000)

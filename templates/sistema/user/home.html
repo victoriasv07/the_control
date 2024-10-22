@@ -11,14 +11,61 @@
 </head>
 <body>
     {% include 'sistema/user/navbar.html' %}
+    
     {% block content %}
         <section class="home">
             <div class="home-conteudo">
                 <h1>Bem vindo</h1>
+                <h2>Tipo de usuário: {{ current_user.__class__.__name__ }}</h2>
+                
+                <!-- Se o usuário for Admin -->
+                {% if current_user.__class__.__name__ == 'Admin' %}
+                    <h3>Requisições de Usuários</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>CPF</th>
+                                <th>Email</th>
+                                <th>Telefone</th>
+                                <th>Mensagem</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if infos_usuarios %}
+                                {% for valor in infos_usuarios %}
+                                    <tr>
+                                        <td>{{ valor.id }}</td>
+                                        <td>{{ valor.nome }}</td>
+                                        <td>{{ valor.cpf }}</td>
+                                        <td>{{ valor.email }}</td>
+                                        <td>{{ valor.telefone }}</td>
+                                        <td>{{ valor.mensagem }}</td>
+                                        <td>
+                                            <!-- Atualizando o formulário para fazer o POST na rota correta -->
+                                            <form action="{{ url_for('user.autorizar_usuario', id=valor.id) }}" method="post">
+                                                <button type="submit">Autorizar</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="7" class="text-center">Nenhuma requisição de usuário encontrada.</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                {% elif current_user.__class__.__name__ == 'Usuario' %}
+                    <!-- Conteúdo para usuários comuns -->
+                    <p>Você é um usuário comum e tem acesso limitado.</p>
+                {% endif %}
             </div>
         </section>
-        <!-- <div id="resultados"></div> -->
     {% endblock %}
+
     <script src="../../static/js/script.js"></script>
 </body>
 </html>
