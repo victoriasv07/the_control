@@ -172,7 +172,7 @@
     background-color: transparent;
 }
 
-.btn-deletar, .btn-editar{
+.btn-deletar, .btn-editar, .autorizar_btn{
     border: none;
     color: var(--corFonteBtn);
     padding: 8px 15px;
@@ -182,17 +182,21 @@
     letter-spacing: 1px;
 }
 
+.autorizar_btn{
+    background-color: var(--corSucess);
+}
+
 .btn-deletar:hover{
     filter: brightness(1.4);
     cursor: pointer;
 }
 
-.btn-editar:hover{
+.btn-editar:hover, .autorizar_btn:hover{
     filter: brightness(1.2);
     cursor: pointer;
 }
 
-.btn-deletar:active, .btn-editar:active{
+.btn-deletar:active, .btn-editar:active, .autorizar_btn:active{
     transform: scale(0.95);
 }
 
