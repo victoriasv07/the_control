@@ -247,11 +247,11 @@
     cursor: pointer;
 }
 
-.alert_sucess_div, .alert_error_div{
+.alert_success_div, .alert_error_div{
     position: absolute;
     top: 20px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%); 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -268,13 +268,13 @@
     border-color: var(--corErrorA2) !important;
 }
 
-.alert_sucess_div svg, .alert_error_div svg{
+.alert_success_div svg, .alert_error_div svg{
     width: 20px;
     height: 20px;
     margin-right: 4px;
 }
 
-.alert_sucess_div svg path{
+.alert_success_div svg path{
     color: var(--corSucessA2) !important;
 }
 
@@ -282,7 +282,7 @@
     color: var(--corErrorA2) !important;
 }
 
-.alert_sucess_div p{
+.alert_success_div p{
     color: var(--corSucessA3);
 }
 

@@ -1,3 +1,5 @@
+{% include 'components/message.html' %}
+
 <div id="deleteDiv" class="delete_div">
     <div id="deleteCard" class="delete_card" style="opacity: 0; transform: translate(-50%, -50%) scale(0);">
         <p class="delete_titulo">Deseja excluir o item?</p>
@@ -100,24 +102,9 @@
     </form>
 </div>
 
-<div class="alert_sucess_div" style="display: none">
-    <svg
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M13 16h-1v-4h1m0-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-        stroke-width="2"
-        stroke-linejoin="round"
-        stroke-linecap="round"
-      ></path>
-    </svg>
-    <p>Sucesso - {{ message }}</p>
-</div>
 
-<div class="alert_error_div" style="display: none">
+
+<!-- <div class="alert_error_div" style="display: none;">
     <svg
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -132,7 +119,9 @@
       ></path>
     </svg>
     <p>Erro - {{message}} </p>
-  </div>
+  </div> -->
+
+
 
 <!-- <div class="camera_div">
     <div class="camera_card">

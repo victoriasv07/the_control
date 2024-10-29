@@ -3,6 +3,7 @@ from flask_login import login_required, logout_user, login_user, current_user
 from models.model import db, Patrimonios, Cadastro, Usuario, Admin
 from utils.pdf_generator import criar_pdf
 from utils.csv_generator import criar_csv
+import time
 
 
 
@@ -68,34 +69,38 @@ def logout():
 
 
 ##rota de login usuario
+
 @bp_user.route("/login", methods=["POST", "GET"])
 def login():
-    message = None
     if request.method == "POST":
         cpf = request.form.get("cpf")
         email = request.form.get("email")
+
+        # Validação do CPF
+        if len(cpf) != 11:
+            flash("O CPF deve ter exatamente 11 dígitos.", "error")
+            return redirect(url_for("user.login")) 
+
         
-        # Primeiro tenta encontrar um usuário normal
+        # Verificação de usuário comum
         user = Usuario.query.filter_by(cpf=cpf, email=email).first()
-
         if user:
+            flash("Usuário logado com sucesso!", "success")
             login_user(user)
-            print(f"Usuário logado: {user.nome}")
             return redirect(url_for("user.home"))
 
-        # Se não for usuário normal, tenta encontrar um admin
+        # Verificação de administrador
         admin = Admin.query.filter_by(cpf=cpf, email=email).first()
-        
         if admin:
+            flash("Administrador logado com sucesso!", "success")
             login_user(admin)
-            print(f"Admin logado: {admin.id}")
             return redirect(url_for("user.home"))
 
-        # Se não for encontrado nenhum, retorna mensagem de erro
-        message = "Email ou CPF inválido."
-        return render_template("./sistema/login.html", message=message)
+        # Caso nenhum usuário ou admin seja encontrado
+        flash("Email ou CPF inválido.", "error")
+        return redirect(url_for("user.login"))  # Redireciona para o login novamente
 
-    return render_template("./sistema/login.html", message=message)
+    return render_template("./sistema/login.html")
 
 
 @bp_user.route("/register", methods=["POST", "GET"])
@@ -113,6 +118,16 @@ def register():
         telefone = request.form.get('telefone')
         email = request.form.get('email')
         mensagem = request.form.get('mensagem')
+        
+        if len(cpf) != 11:
+            flash("O CPF deve ter exatamente 11 dígitos.", "error")
+            return redirect(url_for("user.login")) 
+        elif len(telefone) != 11 :
+            flash("telefone deve ter mais de 11 dígitos","error")
+            return redirect(url_for("user.login"))
+        elif len(mensagem) != 20 :
+            flash("mensagem deve ter mais de 20 dígitos","error")
+            return redirect(url_for("user.login"))
 
         # Criar um novo usuário
         novo_usuario = Cadastro(nome=nome, cpf=cpf, telefone=telefone, email=email, mensagem=mensagem)
@@ -120,6 +135,7 @@ def register():
         # Adicionar o novo usuário ao banco de dados
         db.session.add(novo_usuario)
         db.session.commit()
+        flash("Sua conta foi registrada, logo sera enviado seu token no email cadastrado", "success")
 
         # Redirecionar para a página de login
         return redirect(url_for("user.login"))
@@ -141,6 +157,7 @@ def criar_patrimonio():
         novo_patrimonio = Patrimonios(numero_de_etiqueta = numero_de_etiqueta, denominacao_de_imobiliario =nome, data_de_chegada = data_de_chegada, local = local)
         db.session.add(novo_patrimonio)
         db.session.commit()
+        flash("Sucesso ao criar patrimônio", "success")
         return redirect(url_for("user.home"))
 
 # Rota de deletar patrimônio
@@ -168,8 +185,10 @@ def deletar_patrimonio():
         db.session.delete(patrimonio)
         db.session.commit()
         ##Patrimônio deletado 
+        flash('Patrimônio deletado com sucesso', 'success')
         return redirect(url_for('user.visualizar_patrimonio', sala = sala))
     else:
+        flash('Patrimônio Não encontrado', 'error')
         return redirect(url_for('user.visualizar_patrimonio', sala = sala))
 
 
@@ -196,9 +215,9 @@ def atualizar_patrimonio():
         patrimonio.data_de_chegada = data_de_chegada
         patrimonio.local = local
         db.session.commit()
-        print(f"Patrimônio {patrimonio_id} atualizado com sucesso.")
+        flash(f'Patrimônio {patrimonio_id} atualizado com sucesso', 'success')
     else:
-        print(f"Erro: Patrimônio com ID {patrimonio_id} não encontrado.")
+        flash(f'Patrimônio {patrimonio_id} não encontrado', 'error')
         return redirect(url_for('user.visualizar_patrimonio'))
     
     return redirect(url_for('user.visualizar_patrimonio'))
@@ -218,6 +237,7 @@ def exportar_pdf():
     """
     args = request.args.get("sala")
     pdf_filename = criar_pdf(args)
+    flash("Sucesso ao exportar pdf", "success")
     # Retorna o arquivo PDF para download
     return send_file(pdf_filename, as_attachment=True)
 
@@ -274,6 +294,7 @@ def visualizar_patrimonio():
 def exportar_csv():
     args = request.args.get("sala")
     csv_filename = criar_csv(args)
+    flash("Sucesso ao exportar csv", "success")
     return send_file(csv_filename, as_attachment=True)
 
 
