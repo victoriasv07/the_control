@@ -10,13 +10,14 @@ class Usuario(db.Model, UserMixin):
     cpf = db.Column(db.String(11), nullable=True)  
     email = db.Column(db.String(45), nullable=True)
     telefone = db.Column(db.String(15), nullable=True) 
-    mensagem = db.Column(db.String(128), nullable=False)
+    password = db.Column(db.String(128), nullable=False)
 
 class Admin(db.Model, UserMixin):
     __tablename__ = "admin"
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), nullable=True)
     cpf = db.Column(db.String(11), nullable=True)
+    password = db.Column(db.String(100), nullable = True)
 
 class Patrimonios(db.Model):
     __tablename__ = "patrimonios"
@@ -38,4 +39,4 @@ class Cadastro(db.Model):
     cpf = db.Column(db.String(11), nullable=True)  
     email = db.Column(db.String(45), nullable=True)
     telefone = db.Column(db.String(15), nullable=True) 
-    mensagem = db.Column(db.Text, nullable=True)
+    password = db.Column(db.String(100), nullable=True)

@@ -75,6 +75,7 @@ def login():
     if request.method == "POST":
         cpf = request.form.get("cpf")
         email = request.form.get("email")
+        password = request.form.get("password")
 
         # Validação do CPF
         if len(cpf) != 11:
@@ -83,19 +84,23 @@ def login():
 
         
         # Verificação de usuário comum
-        user = Usuario.query.filter_by(cpf=cpf, email=email).first()
+        user = Usuario.query.filter_by(cpf=cpf, email=email, password = password).first()
         if user:
             flash("Usuário logado com sucesso!", "success")
             login_user(user)
             return redirect(url_for("user.home"))
 
         # Verificação de administrador
-        admin = Admin.query.filter_by(cpf=cpf, email=email).first()
+        admin = Admin.query.filter_by(cpf=cpf, email=email, password = password).first()
         if admin:
             flash("Administrador logado com sucesso!", "success")
             login_user(admin)
             return redirect(url_for("user.home"))
-
+        
+        user_not_admissed = Cadastro.query.filter_by(cpf = cpf, email = email, password = password)
+        if user_not_admissed:
+            flash("Usuário ainda não admitido, espere seu email", "error")
+            return redirect(url_for("user.login"))
         # Caso nenhum usuário ou admin seja encontrado
         flash("Email ou CPF inválido.", "error")
         return redirect(url_for("user.login"))  # Redireciona para o login novamente
@@ -117,26 +122,15 @@ def register():
         cpf = request.form.get('cpf')
         telefone = request.form.get('telefone')
         email = request.form.get('email')
-        mensagem = request.form.get('mensagem')
+        password = request.form.get('password')
         
-        if len(cpf) != 11:
-            flash("O CPF deve ter exatamente 11 dígitos.", "error")
-            return redirect(url_for("user.login")) 
-        elif len(telefone) != 11 :
-            flash("telefone deve ter mais de 11 dígitos","error")
-            return redirect(url_for("user.login"))
-        elif len(mensagem) != 20 :
-            flash("mensagem deve ter mais de 20 dígitos","error")
-            return redirect(url_for("user.login"))
-
         # Criar um novo usuário
-        novo_usuario = Cadastro(nome=nome, cpf=cpf, telefone=telefone, email=email, mensagem=mensagem)
+        novo_usuario = Cadastro(nome=nome, cpf=cpf, telefone=telefone, email=email,password=password)
 
         # Adicionar o novo usuário ao banco de dados
         db.session.add(novo_usuario)
         db.session.commit()
-        flash("Sua conta foi registrada, logo sera enviado seu token no email cadastrado", "success")
-
+        flash("Sua conta foi registrada, espere o admin autoriza-lo(a)", "success")
         # Redirecionar para a página de login
         return redirect(url_for("user.login"))
 
