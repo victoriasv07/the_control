@@ -32,7 +32,6 @@
                                     <th>CPF</th>
                                     <th>Email</th>
                                     <th>Telefone</th>
-                                    <th>Mensagem</th>
                                     <th>Ações</th>
                                 </tr>
                             </thead>
@@ -45,7 +44,6 @@
                                             <td class="tabela-coluna">{{ valor.cpf }}</td>
                                             <td class="tabela-coluna">{{ valor.email }}</td>
                                             <td class="tabela-coluna">{{ valor.telefone }}</td>
-                                            <td class="tabela-coluna">{{ valor.mensagem }}</td>
                                             <td class="tablea-colunas btns">
                                                 <!-- Atualizando o formulário para fazer o POST na rota correta -->
                                                 <form action="{{ url_for('user.autorizar_usuario', id=valor.id) }}" method="post">
@@ -58,10 +56,50 @@
                                     <tr>
                                         <td colspan="7" class="text-center">Nenhuma requisição de usuário encontrada.</td>
                                     </tr>
+
+
                                 {% endif %}
                             </tbody>
                         </table>
                     </section>
+                    <section class="sec-tabela">
+                        <h3>Movimentação de patrimônio</h3>
+                        <table class="tabela">
+                            <thead class="tabela-header">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>Local antigo</th>
+                                    <th>Local novo</th>
+                                    <th>Data Mudança</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if movimentacao_de_ativos %}
+                                    {% for valor in movimentacao_de_ativos %}
+                                        <tr class="tabela-linha">
+                                            <td class="tabela-coluna etq">{{ valor.id }}</td>
+                                            <td class="tabela-coluna">{{ valor.nome }}</td>
+                                            <td class="tabela-coluna">{{ valor.local_antigo }}</td>
+                                            <td class="tabela-coluna">{{ valor.local_novo }}</td>
+                                            <td class="tabela-coluna">{{ valor.data_mudanca }}</td>
+                                            <td class="tablea-colunas btns">
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="7" class="text-center">Nenhuma movimentação.</td>
+                                    </tr>
+
+
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </section>
+
+                    
+                   
                 {% elif current_user.__class__.__name__ == 'Usuario' %}
                     <!-- Conteúdo para usuários comuns -->
                     <p>Você é um usuário comum e tem acesso limitado.</p>

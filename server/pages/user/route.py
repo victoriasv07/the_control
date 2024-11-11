@@ -1,22 +1,21 @@
 from flask import Blueprint, jsonify, request, render_template, redirect, url_for, flash, session, send_file
 from flask_login import login_required, logout_user, login_user, current_user
-from models.model import db, Patrimonios, Cadastro, Usuario, Admin
+from models.model import db, Patrimonios, Cadastro, Usuario, Admin, Rastreio_patrimonio
 from utils.pdf_generator import criar_pdf
 from utils.csv_generator import criar_csv
+import datetime
 import time
 
-
-
 bp_user = Blueprint("user", __name__)
-
 
 @bp_user.route("/home")
 @login_required
 def home():
     infos_usuarios = Cadastro.query.all()
+    movimentacao_de_ativos = Rastreio_patrimonio.query.all()
     print(f"Requisições de usuários encontradas: {infos_usuarios}")
-    
-    return render_template("./sistema/user/home.html", infos_usuarios=infos_usuarios)
+    print(f"Movimentação de ativos encontradas: {movimentacao_de_ativos}")    
+    return render_template("./sistema/user/home.html", infos_usuarios=infos_usuarios, movimentacao_de_ativos = movimentacao_de_ativos)
 
 
 @bp_user.route("/autorizar_usuario/<int:id>", methods=["POST"])
@@ -166,7 +165,7 @@ def deletar_patrimonio():
     do banco de dados e retorna a página de patrimônios.
 
     Se o ID não for fornecido, ele retorna um erro 400.
-    Se o patrimônio não for encontrado, ele retorna um erro 404.
+    Se o p'atrimônio não for encontrado, ele retorna um erro 404.
     """
     message = ""
     patrimonio_id = request.form.get('patrimonio_id')
@@ -187,6 +186,8 @@ def deletar_patrimonio():
 
 
 
+mudancas_patrimonio = {}
+
 # Rota para atualizar patrimônio
 @bp_user.route("/atualizar", methods=["POST"])
 @login_required
@@ -195,7 +196,7 @@ def atualizar_patrimonio():
     numero_de_etiqueta = request.form.get('editar_numero_de_etiqueta')
     nome = request.form.get('editar_nome')
     data_de_chegada = request.form.get('editar_data_de_chegada')
-    local = request.form.get('editar_local')
+    local_novo = request.form.get('editar_local')
 
     if not patrimonio_id:
         print("Erro: ID do patrimônio não foi enviado.")
@@ -203,17 +204,43 @@ def atualizar_patrimonio():
 
     patrimonio = Patrimonios.query.get(patrimonio_id)
     if patrimonio:
+        # Verifica se o local foi alterado
+        if patrimonio.local != local_novo:
+            local_antigo = patrimonio.local  # Armazena o local antigo
+            
+            # Armazena a mudança no dicionário (opcional, apenas para visualização temporária)
+            mudancas_patrimonio[patrimonio_id] = {
+                'numero_de_etiqueta': patrimonio.numero_de_etiqueta,
+                'nome': patrimonio.denominacao_de_imobiliario,
+                'data_de_chegada': patrimonio.data_de_chegada,
+                'local_antigo': local_antigo,
+                'local_novo': local_novo,
+                'data_mudanca': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            }
+            
+            # Cria um novo registro de rastreio na tabela 'Rastreio_patrimonio'
+            rastreio = Rastreio_patrimonio(
+                nome=nome,  
+                patrimonio_id=patrimonio_id, 
+                local_antigo=local_antigo,  
+                local_novo=local_novo, 
+                data_mudanca=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Data da mudança
+            )
+            db.session.add(rastreio)  # Adiciona o novo rastreio na sessão
+
         # Atualiza o patrimônio
         patrimonio.numero_de_etiqueta = numero_de_etiqueta
         patrimonio.denominacao_de_imobiliario = nome
         patrimonio.data_de_chegada = data_de_chegada
-        patrimonio.local = local
-        db.session.commit()
+        patrimonio.local = local_novo  # Atualiza com o novo local
+        db.session.commit()  # Salva as mudanças no banco de dados
+
         flash(f'Patrimônio {patrimonio_id} atualizado com sucesso', 'success')
+        print(mudancas_patrimonio)
     else:
         flash(f'Patrimônio {patrimonio_id} não encontrado', 'error')
         return redirect(url_for('user.visualizar_patrimonio'))
-    
+
     return redirect(url_for('user.visualizar_patrimonio'))
 
     

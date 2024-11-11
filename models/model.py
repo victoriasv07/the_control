@@ -40,3 +40,16 @@ class Cadastro(db.Model):
     email = db.Column(db.String(45), nullable=True)
     telefone = db.Column(db.String(15), nullable=True) 
     password = db.Column(db.String(100), nullable=True)
+    
+class Rastreio_patrimonio(db.Model):
+    __tablename__ = "rastreio_de_patrimonios"
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(100), nullable=True)
+    patrimonio_id = db.Column(db.Integer, db.ForeignKey('patrimonios.id'))  
+    local_antigo = db.Column(db.String(100), nullable=True) 
+    local_novo = db.Column(db.String(100), nullable=True)  
+    data_mudanca = db.Column(db.String(100), nullable=True)  
+
+    # Relacionamento com Patrimonios
+    patrimonio = db.relationship('Patrimonios', backref='rastreios')
+

@@ -1,5 +1,5 @@
 from flask import Flask
-import argparse
+from flask_migrate import Migrate
 from flask_login import LoginManager, current_user
 from config.config import Config
 from models.model import db, Patrimonios
@@ -17,6 +17,7 @@ def create_app():
     app.secret_key = os.getenv("SECRET_KEY")
     app.config.from_object(Config)
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=100)
+    migrate = Migrate(app=app, db=db)
     
     # Inicializar as extensões
     db.init_app(app)
