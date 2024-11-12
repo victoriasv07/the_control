@@ -68,6 +68,8 @@
                             <thead class="tabela-header">
                                 <tr>
                                     <th>ID</th>
+                                    <th>ID em patrimônios</th>
+                                    <th>Etiqueta</th>
                                     <th>Nome</th>
                                     <th>Local antigo</th>
                                     <th>Local novo</th>
@@ -79,6 +81,7 @@
                                     {% for valor in movimentacao_de_ativos %}
                                         <tr class="tabela-linha">
                                             <td class="tabela-coluna etq">{{ valor.id }}</td>
+                                            <td class="tabela-coluna etq">{{ valor.patrimonio_id }}</td>
                                             <td class="tabela-coluna">{{ valor.nome }}</td>
                                             <td class="tabela-coluna">{{ valor.local_antigo }}</td>
                                             <td class="tabela-coluna">{{ valor.local_novo }}</td>

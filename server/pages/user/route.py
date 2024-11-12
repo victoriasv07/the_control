@@ -36,7 +36,7 @@ def autorizar_usuario(id):
         cpf=usuario_a_autorizar.cpf,
         email=usuario_a_autorizar.email,
         telefone=usuario_a_autorizar.telefone,
-        mensagem=usuario_a_autorizar.mensagem
+        password=usuario_a_autorizar.password
     )
 
     db.session.add(novo_usuario)
@@ -207,8 +207,6 @@ def atualizar_patrimonio():
         # Verifica se o local foi alterado
         if patrimonio.local != local_novo:
             local_antigo = patrimonio.local  # Armazena o local antigo
-            
-            # Armazena a mudança no dicionário (opcional, apenas para visualização temporária)
             mudancas_patrimonio[patrimonio_id] = {
                 'numero_de_etiqueta': patrimonio.numero_de_etiqueta,
                 'nome': patrimonio.denominacao_de_imobiliario,
