@@ -249,7 +249,7 @@
 
 .alert_success_div, .alert_error_div{
     position: absolute;
-    top: 20px;
+    top: -100%;
     left: 50%;
     transform: translateX(-50%); 
     display: flex;
@@ -260,6 +260,8 @@
     border-radius: 8px;
     border-left: 4px solid var(--corSucessA2);
     border-color: var(--corSucessA2);
+    animation: popUp forwards 5s ease-in-out;
+    transition: .3s all;
 }
 
 .alert_error_div{
@@ -298,5 +300,17 @@
     50% {
       transform: translateY(0);
       animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+}
+
+@keyframes popUp {
+    10%{
+        top: 20px;
+    }
+    60%{
+        top: 20px;
+    }
+    100%{
+        top: -100%;
     }
 }

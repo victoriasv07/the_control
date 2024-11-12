@@ -73,30 +73,32 @@ def logout():
 def login():
     if request.method == "POST":
         cpf = request.form.get("cpf")
+        cpf_limpo = cpf.replace('.','').replace('-','')
+        print(cpf_limpo)
         email = request.form.get("email")
         password = request.form.get("password")
 
         # Validação do CPF
-        if len(cpf) != 11:
+        if len(cpf_limpo) != 11:
             flash("O CPF deve ter exatamente 11 dígitos.", "error")
             return redirect(url_for("user.login")) 
 
         
         # Verificação de usuário comum
-        user = Usuario.query.filter_by(cpf=cpf, email=email, password = password).first()
+        user = Usuario.query.filter_by(cpf=cpf_limpo, email=email, password = password).first()
         if user:
             flash("Usuário logado com sucesso!", "success")
             login_user(user)
             return redirect(url_for("user.home"))
 
         # Verificação de administrador
-        admin = Admin.query.filter_by(cpf=cpf, email=email, password = password).first()
+        admin = Admin.query.filter_by(cpf=cpf_limpo, email=email, password = password).first()
         if admin:
             flash("Administrador logado com sucesso!", "success")
             login_user(admin)
             return redirect(url_for("user.home"))
         
-        user_not_admissed = Cadastro.query.filter_by(cpf = cpf, email = email, password = password)
+        user_not_admissed = Cadastro.query.filter_by(cpf = cpf_limpo, email = email, password = password)
         if user_not_admissed:
             flash("Usuário ainda não admitido, espere seu email", "error")
             return redirect(url_for("user.login"))
@@ -119,12 +121,14 @@ def register():
         # Pegar os dados do formulário
         nome = request.form.get('nome')
         cpf = request.form.get('cpf')
+        cpf_limpo = cpf.replace('.','').replace('-','')
         telefone = request.form.get('telefone')
+        telefone_limpo = telefone.replace('(','').replace(')','').replace('-','')
         email = request.form.get('email')
         password = request.form.get('password')
         
         # Criar um novo usuário
-        novo_usuario = Cadastro(nome=nome, cpf=cpf, telefone=telefone, email=email,password=password)
+        novo_usuario = Cadastro(nome=nome, cpf=cpf_limpo, telefone=telefone_limpo, email=email,password=password)
 
         # Adicionar o novo usuário ao banco de dados
         db.session.add(novo_usuario)
