@@ -1,0 +1,115 @@
+:root{
+    /* ==== CORES ==== */
+    --corBackBody: #e8ecf7;
+    --corSideBar: #fff;
+    --corFonte: #707070;
+    --corToggleInput: #ddd;
+    --corPrimaria: rgba(122, 0, 141, 1);
+    --corFonteBtn: #fff;
+
+    /* ==== TRANSICOES ==== */
+    --tran-3: .3s ease;
+    --tran-4: .4s ease;
+    --tran-5: .5s ease;
+}
+
+:root.dark{
+    --corBackBody: #1f2020;
+    --corSideBar: #242526;
+    --corFonte: #ccc;
+    --corToggleInput: #ddd;
+}
+
+@media screen and (max-width: 1270px){
+    .tabela{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .tabela thead{
+        display: none;
+    }
+
+    .tabela tbody{
+        width: 100%;
+    }
+
+    .tabela-header tr{
+        display: flex;
+        flex-direction: column;
+   }
+   
+   .tabela-linha{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-bottom: 12px;
+   }
+
+   .tabela-coluna{
+    text-align: center;
+   }
+
+   .tabela-coluna.id{
+    border-left: unset;
+    font-weight: bold;
+   }
+}
+
+@media screen and (max-width: 1205px){
+    .sec-bar{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .procurar-btn input{
+        width: clamp(200px, 45vw, 700px);
+    }
+}
+
+@media screen and (max-width: 900px){
+    .side-bar{
+        width: 0;
+        padding: 10px 0;
+        margin-top: 60px;
+    }
+
+    .side-bar.active{
+        width: 250px;
+        padding: 10px 14px;
+    }
+
+    .home{
+        margin: 60px 0 0 0;
+        width: 100%;
+    }
+
+    .abrir-nav{
+        display: none !important;
+    }
+
+    .menuHamb{
+        display: block;
+        height: 60px;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: var(--corSideBar);
+    }
+
+    .menuH{
+        display: block;
+        height: 60px;
+    }
+
+    .editar_card, .cadastrar_card{
+        width: clamp(200px, 70vw, 500px) !important;
+    }
+
+    .delete_div, .cadastrar_div, .editar_div{
+        top: 60px;
+    }
+}

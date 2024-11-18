@@ -15,6 +15,7 @@ const switchT = document.querySelector('.switch')
       editarDiv = document.querySelector('.editar_div')
       editarCard = document.querySelector('.editar_card')
       editarTitulo = document.querySelector('.editar_titulo')
+      menuHamb = document.getElementById('menu')
 
 let modeStatus = localStorage.getItem('status')
 if (modeStatus === 'fechado'){
@@ -42,6 +43,10 @@ switchT.addEventListener('click', () => {
             localStorage.setItem('mode', 'light')
         }
     }, 100)
+})
+
+menuHamb.addEventListener('change', () => {
+    sideBar.classList.toggle('active')
 })
 
 menuBtn.addEventListener('click', () => {
