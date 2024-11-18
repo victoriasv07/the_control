@@ -1,4 +1,14 @@
-from flask import Blueprint, jsonify, request, render_template, redirect, url_for, flash, session, send_file
+from flask import (
+    Blueprint,
+    jsonify,
+    request,
+    render_template,
+    redirect,
+    url_for,
+    flash,
+    session,
+    send_file,
+)
 from flask_login import login_required, logout_user, login_user, current_user
 from models.model import db, Patrimonios, Cadastro, Usuario, Admin, Rastreio_patrimonio
 from utils.pdf_generator import criar_pdf
@@ -8,35 +18,40 @@ import time
 
 bp_user = Blueprint("user", __name__)
 
+
 @bp_user.route("/home")
 @login_required
 def home():
     infos_usuarios = Cadastro.query.all()
     movimentacao_de_ativos = Rastreio_patrimonio.query.all()
     print(f"Requisições de usuários encontradas: {infos_usuarios}")
-    print(f"Movimentação de ativos encontradas: {movimentacao_de_ativos}")    
-    return render_template("./sistema/user/home.html", infos_usuarios=infos_usuarios, movimentacao_de_ativos = movimentacao_de_ativos)
+    print(f"Movimentação de ativos encontradas: {movimentacao_de_ativos}")
+    return render_template(
+        "./sistema/user/home.html",
+        infos_usuarios=infos_usuarios,
+        movimentacao_de_ativos=movimentacao_de_ativos,
+    )
 
 
 @bp_user.route("/autorizar_usuario/<int:id>", methods=["POST"])
 @login_required
 def autorizar_usuario(id):
     # Verifica se o usuário logado é Admin
-    if current_user.__class__.__name__ != 'Admin':
-        return redirect(url_for('user.home'))  # Redireciona se não for admin
-    
+    if current_user.__class__.__name__ != "Admin":
+        return redirect(url_for("user.home"))  # Redireciona se não for admin
+
     usuario_a_autorizar = Cadastro.query.get(id)
 
     if not usuario_a_autorizar:
         print("Usuário não encontrado.")
-        return redirect(url_for('user.home'))
+        return redirect(url_for("user.home"))
     ##cria um novo registro na Tabela Usuario
     novo_usuario = Usuario(
         nome=usuario_a_autorizar.nome,
         cpf=usuario_a_autorizar.cpf,
         email=usuario_a_autorizar.email,
         telefone=usuario_a_autorizar.telefone,
-        password=usuario_a_autorizar.password
+        password=usuario_a_autorizar.password,
     )
 
     db.session.add(novo_usuario)
@@ -44,7 +59,7 @@ def autorizar_usuario(id):
     db.session.commit()
 
     flash(f"Usuário {novo_usuario.nome} autorizado com sucesso!", "success")
-    return redirect(url_for('user.home'))
+    return redirect(url_for("user.home"))
 
 
 ##rota base sistemas
@@ -53,7 +68,8 @@ def autorizar_usuario(id):
 def sistema():
     return render_template("./sistema/user/layout.html")
 
-@bp_user.route('/logout')
+
+@bp_user.route("/logout")
 def logout():
     """
     Essa rota é responsável por fazer logout do usuário no sistema.
@@ -63,17 +79,17 @@ def logout():
     Em seguida, redireciona o usu rio para a p gina de login.
     """
     logout_user()
-    return redirect(url_for('user.login'))
-
+    return redirect(url_for("user.login"))
 
 
 ##rota de login usuario
+
 
 @bp_user.route("/login", methods=["POST", "GET"])
 def login():
     if request.method == "POST":
         cpf = request.form.get("cpf")
-        cpf_limpo = cpf.replace('.','').replace('-','')
+        cpf_limpo = cpf.replace(".", "").replace("-", "")
         print(cpf_limpo)
         email = request.form.get("email")
         password = request.form.get("password")
@@ -81,24 +97,29 @@ def login():
         # Validação do CPF
         if len(cpf_limpo) != 11:
             flash("O CPF deve ter exatamente 11 dígitos.", "error")
-            return redirect(url_for("user.login")) 
+            return redirect(url_for("user.login"))
 
-        
         # Verificação de usuário comum
-        user = Usuario.query.filter_by(cpf=cpf_limpo, email=email, password = password).first()
+        user = Usuario.query.filter_by(
+            cpf=cpf_limpo, email=email, password=password
+        ).first()
         if user:
             flash("Usuário logado com sucesso!", "success")
             login_user(user)
             return redirect(url_for("user.home"))
 
         # Verificação de administrador
-        admin = Admin.query.filter_by(cpf=cpf_limpo, email=email, password = password).first()
+        admin = Admin.query.filter_by(
+            cpf=cpf_limpo, email=email, password=password
+        ).first()
         if admin:
             flash("Administrador logado com sucesso!", "success")
             login_user(admin)
             return redirect(url_for("user.home"))
-        
-        user_not_admissed = Cadastro.query.filter_by(cpf = cpf_limpo, email = email, password = password)
+
+        user_not_admissed = Cadastro.query.filter_by(
+            cpf=cpf_limpo, email=email, password=password
+        )
         if user_not_admissed:
             flash("Usuário ainda não admitido, espere seu email", "error")
             return redirect(url_for("user.login"))
@@ -119,16 +140,22 @@ def register():
     """
     if request.method == "POST":
         # Pegar os dados do formulário
-        nome = request.form.get('nome')
-        cpf = request.form.get('cpf')
-        cpf_limpo = cpf.replace('.','').replace('-','')
-        telefone = request.form.get('telefone')
-        telefone_limpo = telefone.replace('(','').replace(')','').replace('-','')
-        email = request.form.get('email')
-        password = request.form.get('password')
-        
+        nome = request.form.get("nome")
+        cpf = request.form.get("cpf")
+        cpf_limpo = cpf.replace(".", "").replace("-", "")
+        telefone = request.form.get("telefone")
+        telefone_limpo = telefone.replace("(", "").replace(")", "").replace("-", "")
+        email = request.form.get("email")
+        password = request.form.get("password")
+
         # Criar um novo usuário
-        novo_usuario = Cadastro(nome=nome, cpf=cpf_limpo, telefone=telefone_limpo, email=email,password=password)
+        novo_usuario = Cadastro(
+            nome=nome,
+            cpf=cpf_limpo,
+            telefone=telefone_limpo,
+            email=email,
+            password=password,
+        )
 
         # Adicionar o novo usuário ao banco de dados
         db.session.add(novo_usuario)
@@ -140,22 +167,30 @@ def register():
     # Se o método for GET, retorna o formulário de cadastro
     return render_template("./sistema/cadastro.html")
 
-#rota para filtrar salas a partir da navbar
 
-@bp_user.route("/criar", methods =["POST"])
+# rota para filtrar salas a partir da navbar
+
+
+@bp_user.route("/criar", methods=["POST"])
 @login_required
 def criar_patrimonio():
-    if request.method =="POST":
+    if request.method == "POST":
         numero_de_etiqueta = request.form.get("cadastrar_numero_de_etiqueta")
         nome = request.form.get("cadastrar_nome")
         data_de_chegada = request.form.get("cadastrar_data_de_chegada")
         local = request.form.get("cadastrar_local")
-        
-        novo_patrimonio = Patrimonios(numero_de_etiqueta = numero_de_etiqueta, denominacao_de_imobiliario =nome, data_de_chegada = data_de_chegada, local = local)
+
+        novo_patrimonio = Patrimonios(
+            numero_de_etiqueta=numero_de_etiqueta,
+            denominacao_de_imobiliario=nome,
+            data_de_chegada=data_de_chegada,
+            local=local,
+        )
         db.session.add(novo_patrimonio)
         db.session.commit()
         flash("Sucesso ao criar patrimônio", "success")
         return redirect(url_for("user.home"))
+
 
 # Rota de deletar patrimônio
 @bp_user.route("/deletar", methods=["POST"])
@@ -172,39 +207,39 @@ def deletar_patrimonio():
     Se o p'atrimônio não for encontrado, ele retorna um erro 404.
     """
     message = ""
-    patrimonio_id = request.form.get('patrimonio_id')
-    sala = request.form.get('sala')
+    patrimonio_id = request.form.get("patrimonio_id")
+    sala = request.form.get("sala")
     if not patrimonio_id:
-        return 'ID do patrimônio não fornecido', 400
-    
+        return "ID do patrimônio não fornecido", 400
+
     patrimonio = Patrimonios.query.get(patrimonio_id)
     if patrimonio:
         db.session.delete(patrimonio)
         db.session.commit()
-        ##Patrimônio deletado 
-        flash('Patrimônio deletado com sucesso', 'success')
-        return redirect(url_for('user.visualizar_patrimonio', sala = sala))
+        ##Patrimônio deletado
+        flash("Patrimônio deletado com sucesso", "success")
+        return redirect(url_for("user.visualizar_patrimonio", sala=sala))
     else:
-        flash('Patrimônio Não encontrado', 'error')
-        return redirect(url_for('user.visualizar_patrimonio', sala = sala))
-
+        flash("Patrimônio Não encontrado", "error")
+        return redirect(url_for("user.visualizar_patrimonio", sala=sala))
 
 
 mudancas_patrimonio = {}
+
 
 # Rota para atualizar patrimônio
 @bp_user.route("/atualizar", methods=["POST"])
 @login_required
 def atualizar_patrimonio():
-    patrimonio_id = request.form.get('editar_id')
-    numero_de_etiqueta = request.form.get('editar_numero_de_etiqueta')
-    nome = request.form.get('editar_nome')
-    data_de_chegada = request.form.get('editar_data_de_chegada')
-    local_novo = request.form.get('editar_local')
+    patrimonio_id = request.form.get("editar_id")
+    numero_de_etiqueta = request.form.get("editar_numero_de_etiqueta")
+    nome = request.form.get("editar_nome")
+    data_de_chegada = request.form.get("editar_data_de_chegada")
+    local_novo = request.form.get("editar_local")
 
     if not patrimonio_id:
         print("Erro: ID do patrimônio não foi enviado.")
-        return redirect(url_for('user.visualizar_patrimonio'))
+        return redirect(url_for("user.visualizar_patrimonio"))
 
     patrimonio = Patrimonios.query.get(patrimonio_id)
     if patrimonio:
@@ -212,21 +247,23 @@ def atualizar_patrimonio():
         if patrimonio.local != local_novo:
             local_antigo = patrimonio.local  # Armazena o local antigo
             mudancas_patrimonio[patrimonio_id] = {
-                'numero_de_etiqueta': patrimonio.numero_de_etiqueta,
-                'nome': patrimonio.denominacao_de_imobiliario,
-                'data_de_chegada': patrimonio.data_de_chegada,
-                'local_antigo': local_antigo,
-                'local_novo': local_novo,
-                'data_mudanca': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                "numero_de_etiqueta": patrimonio.numero_de_etiqueta,
+                "nome": patrimonio.denominacao_de_imobiliario,
+                "data_de_chegada": patrimonio.data_de_chegada,
+                "local_antigo": local_antigo,
+                "local_novo": local_novo,
+                "data_mudanca": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             }
-            
+
             # Cria um novo registro de rastreio na tabela 'Rastreio_patrimonio'
             rastreio = Rastreio_patrimonio(
-                nome=nome,  
-                patrimonio_id=patrimonio_id, 
-                local_antigo=local_antigo,  
-                local_novo=local_novo, 
-                data_mudanca=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Data da mudança
+                nome=nome,
+                patrimonio_id=patrimonio_id,
+                local_antigo=local_antigo,
+                local_novo=local_novo,
+                data_mudanca=datetime.datetime.now().strftime(
+                    "%Y-%m-%d %H:%M:%S"
+                ),  # Data da mudança
             )
             db.session.add(rastreio)  # Adiciona o novo rastreio na sessão
 
@@ -237,15 +274,15 @@ def atualizar_patrimonio():
         patrimonio.local = local_novo  # Atualiza com o novo local
         db.session.commit()  # Salva as mudanças no banco de dados
 
-        flash(f'Patrimônio {patrimonio_id} atualizado com sucesso', 'success')
+        flash(f"Patrimônio {patrimonio_id} atualizado com sucesso", "success")
         print(mudancas_patrimonio)
     else:
-        flash(f'Patrimônio {patrimonio_id} não encontrado', 'error')
-        return redirect(url_for('user.visualizar_patrimonio'))
+        flash(f"Patrimônio {patrimonio_id} não encontrado", "error")
+        return redirect(url_for("user.visualizar_patrimonio"))
 
-    return redirect(url_for('user.visualizar_patrimonio'))
+    return redirect(url_for("user.visualizar_patrimonio"))
 
-    
+
 @bp_user.route("/exportar/pdf", methods=["GET", "POST"])
 @login_required
 def exportar_pdf():
@@ -267,7 +304,7 @@ def exportar_pdf():
 
 @bp_user.route("/filtrar", methods=["POST", "GET"])
 @login_required
-def visualizar_patrimonio(): 
+def visualizar_patrimonio():
     """
     Rota para visualizar e deletar patrimônios por sala ou realizar uma pesquisa com base em um termo fornecido.
     """
@@ -288,7 +325,7 @@ def visualizar_patrimonio():
                 db.session.delete(patrimonio)
                 db.session.commit()
                 flash(f"Patrimônio ID {patrimonio_id} excluído com sucesso!", "success")
-    
+
     # Inicia a consulta de patrimônio sem filtros
     patrimonios = Patrimonios.query
 
@@ -301,16 +338,23 @@ def visualizar_patrimonio():
             patrimonios = patrimonios.filter_by(local=sala)
 
     if query:
-        #filtra o banco a partir da query passada
+        # filtra o banco a partir da query passada
         patrimonios = patrimonios.filter(
-            (Patrimonios.denominacao_de_imobiliario.ilike(f'%{query}%')) |
-            (Patrimonios.numero_de_etiqueta.ilike(f'%{query}%')) |
-            (Patrimonios.local.ilike(f'%{query}%'))
+            (Patrimonios.denominacao_de_imobiliario.ilike(f"%{query}%"))
+            | (Patrimonios.numero_de_etiqueta.ilike(f"%{query}%"))
+            | (Patrimonios.local.ilike(f"%{query}%"))
         )
-        
-    #exibe toda a pesquisa filtrada
+
+    # exibe toda a pesquisa filtrada
     patrimonios = patrimonios.all()
-    return render_template("./sistema/user/layout.html", patrimonios=patrimonios, sala=sala, salas=salas, query=query)
+    return render_template(
+        "./sistema/user/layout.html",
+        patrimonios=patrimonios,
+        sala=sala,
+        salas=salas,
+        query=query,
+    )
+
 
 @bp_user.route("/exportar/csv", methods=["GET", "POST"])
 @login_required
@@ -321,20 +365,29 @@ def exportar_csv():
     return send_file(csv_filename, as_attachment=True)
 
 
-#teste de funcionalidade de camera
+# teste de funcionalidade de camera
 @bp_user.route("/camera")
 @login_required
 def mostrar_camera():
     return render_template("./sistema/camera.html")
 
+
 @bp_user.route("/lerbarcode", methods=["POST"])
 @login_required
 def ler_barcode():
-    #terminar de desenvolver funcionalidade de aidção de patrimônio a partir da camêra
+    # terminar de desenvolver funcionalidade de aidção de patrimônio a partir da camêra
     data = request.get_json()
-    if not data or 'codigo' not in data:
+    if not data or "codigo" not in data:
         return jsonify({"erro": "Código de barras não encontrado"}), 400
 
-    codigo_barras = data['codigo']
+    codigo_barras = data["codigo"]
     print(f"Código de barras recebido: {codigo_barras}")
-    return jsonify({"mensagem": "Código de barras processado com sucesso", "codigo": codigo_barras}), 200
+    return (
+        jsonify(
+            {
+                "mensagem": "Código de barras processado com sucesso",
+                "codigo": codigo_barras,
+            }
+        ),
+        200,
+    )
