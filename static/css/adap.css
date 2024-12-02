@@ -113,3 +113,9 @@
         top: 60px;
     }
 }
+
+@media screen and (max-width: 450px){
+    .delete_card{
+        width: clamp(200px, 70vw, 500px) !important;
+    }
+}

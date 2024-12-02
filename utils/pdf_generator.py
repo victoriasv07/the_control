@@ -16,7 +16,7 @@ def criar_pdf(sala):
     elementos.append(img)
     
     styles = getSampleStyleSheet()
-    titulo = Paragraph(f"Tabela Patrimônio - Sala {sala}", styles['Title'])
+    titulo = Paragraph(f"Tabela de Patrimônios - Sala {sala}", styles['Title'])
     elementos.append(titulo)
 
     patrimonios = Patrimonios.query.filter_by(local=sala).all()
