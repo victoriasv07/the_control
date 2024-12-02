@@ -105,8 +105,6 @@
                                     <tr>
                                         <td colspan="7" class="text-center">Nenhuma movimentação.</td>
                                     </tr>
-
-
                                 {% endif %}
                             </tbody>
                         </table>
@@ -117,11 +115,46 @@
                 {% elif current_user.__class__.__name__ == 'Usuario' %}
                     <!-- Conteúdo para usuários comuns -->
                     <p>Você é um usuário comum e tem acesso limitado.</p>
+
+                    <section class="sec-tabela">
+                        <h3>Movimentação de patrimônio</h3>
+                        <table class="tabela">
+                            <thead class="tabela-header">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>ID em patrimônios</th>
+                                    <th>Nome</th>
+                                    <th>Local antigo</th>
+                                    <th>Local novo</th>
+                                    <th>Data Mudança</th>
+                             </tr>
+                            </thead>
+                            <tbody>
+                                {% if movimentacao_de_ativos %}
+                                    {% for valor in movimentacao_de_ativos %}
+                                        <tr class="tabela-linha">
+                                            <td class="tabela-coluna etq">{{ valor.id }}</td>
+                                            <td class="tabela-coluna etq">{{ valor.patrimonio_id }}</td>
+                                            <td class="tabela-coluna">{{ valor.nome }}</td>
+                                            <td class="tabela-coluna">{{ valor.local_antigo }}</td>
+                                            <td class="tabela-coluna">{{ valor.local_novo }}</td>
+                                            <td class="tabela-coluna">{{ valor.data_mudanca }}</td>
+                                            <td class="tablea-colunas btns">
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="7" class="text-center">Nenhuma movimentação.</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </section>
                 {% endif %}
             </div>
         </section>
     {% endblock %}
-
     <script src="../../static/js/script.js"></script>
 </body>
 </html>

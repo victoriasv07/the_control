@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../../static/css/cadastro.css">
+    <link rel="stylesheet" href="../../../static/css/adap.css">
     <link rel="icon" href="../../static/img/iconefp.png">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>The Control | Cadastro</title>
@@ -15,9 +16,9 @@
     <div class="back-logo">
         <img src="../../static/img/iconecfpQ.png">
     </div>
-    <div class="top-logo">
+    <a class="top-logo" href="/empresa">
         <img src="../../../static/img/logorft.png">
-    </div>
+    </a>
     <div class="container">
         <h1 class="form-titulo">Cadastro</h1>
         <form action="{{ url_for('user.register') }}" method="post" class="form">
@@ -50,7 +51,7 @@
             <p class="text-cadastro">Já está cadastrado?<a href="/login">Login</a></p>
         </form>
     </div>
-    <footer class="cadastro-footer">© THE CONTROL - 2024</footer>
+    <footer class="cadastro-footer">© Todos os direitos reservados à The Control - 2024</footer>
     <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="http://threejs.org/examples/js/libs/stats.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

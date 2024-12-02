@@ -74,6 +74,7 @@
         width: 0;
         padding: 10px 0;
         margin-top: 60px;
+        height: calc(100% - 80px);
     }
 
     .side-bar.active{
@@ -111,6 +112,12 @@
 
     .delete_div, .cadastrar_div, .editar_div{
         top: 60px;
+    }
+}
+
+@media screen and (max-width: 600px){
+    .container{
+        width: clamp(200px, 70vw, 500px) !important;
     }
 }
 

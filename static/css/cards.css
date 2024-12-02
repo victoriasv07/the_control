@@ -248,7 +248,7 @@
     cursor: pointer;
 }
 
-.alert_success_div, .alert_error_div{
+.alert_Sucesso_div, .alert_Erro_div{
     position: absolute;
     top: -100%;
     left: 50%;
@@ -265,31 +265,31 @@
     transition: .3s all;
 }
 
-.alert_error_div{
+.alert_Erro_div{
     background-color: var(--corErrorA1) !important;
     border-left: 4px solid var(--corErrorA2) !important;
     border-color: var(--corErrorA2) !important;
 }
 
-.alert_success_div svg, .alert_error_div svg{
+.alert_Sucesso_div svg, .alert_Erro_div svg{
     width: 20px;
     height: 20px;
     margin-right: 4px;
 }
 
-.alert_success_div svg path{
+.alert_Sucesso_div svg path{
     color: var(--corSucessA2) !important;
 }
 
-.alert_error_div svg path{
+.alert_Erro_div svg path{
     color: var(--corErrorA2) !important;
 }
 
-.alert_success_div p{
+.alert_Sucesso_div p{
     color: var(--corSucessA3);
 }
 
-.alert_error_div p{
+.alert_Erro_div p{
     color: var(--corErrorA3) !important;
 }
 
