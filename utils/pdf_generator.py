@@ -21,7 +21,7 @@ def criar_pdf(sala):
 
     patrimonios = Patrimonios.query.filter_by(local=sala).all()
 
-    dados = [['Etiqueta', 'Local', 'Denominação', 'Data de Chegada','Consta?']]
+    dados = [['Etiqueta', 'Local', 'Denominação', 'Data de Chegada','Situação']]
     for patrimonio in patrimonios:
         dados.append([
             patrimonio.numero_de_etiqueta,

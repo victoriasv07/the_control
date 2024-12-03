@@ -119,6 +119,22 @@
     .container{
         width: clamp(200px, 70vw, 500px) !important;
     }
+
+    .input-group{
+        margin-bottom: 10px;
+    }
+
+    @keyframes popUp {
+        10%{
+            top: 80px;
+        }
+        60%{
+            top: 80px;
+        }
+        100%{
+            top: -100%;
+        }
+    }
 }
 
 @media screen and (max-width: 450px){
