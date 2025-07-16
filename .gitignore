@@ -1,5 +1,5 @@
 .venv/
 .env
+migrations/
 *.pyc
 __pycache__
-migrations/
