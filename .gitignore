@@ -1,5 +1,5 @@
+*.pyc
 .venv/
 .env
 migrations/
-*.pyc
 __pycache__
