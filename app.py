@@ -8,8 +8,9 @@ from dotenv import load_dotenv
 import os
 
 
-# Define login_manager fora da função create_app
+# Cria as instâncias das extensões fora da factory
 login_manager = LoginManager()
+migrate = Migrate()
 
 
 def create_app():
@@ -18,10 +19,10 @@ def create_app():
     app.secret_key = os.getenv("SECRET_KEY")
     app.config.from_object(Config)
     app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=100)
-    migrate = Migrate(app=app, db=db)
 
     # Inicializar as extensões
     db.init_app(app)
+    migrate.init_app(app, db)
     login_manager.init_app(app)
 
     # Importação das blueprints

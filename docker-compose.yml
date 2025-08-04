@@ -1,0 +1,9 @@
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - SQLALCHEMY_DATABASE_URI=mysql+pymysql://root:5e5i_123@host.docker.internal:3306/the_control
+      - SECRET_KEY=e9b1a9f3dd0b468dc4c02e78d125c2a792c354ed1d9c6242df2e7864b67f738f
+    restart: always
